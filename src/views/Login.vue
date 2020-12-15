@@ -4,7 +4,7 @@
       <el-form ref="form" :model="form" label-width="0px">
 
         <el-form-item class="">
-          <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+          <el-input v-model="form.id" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item>
           <el-input v-model="form.password" placeholder="请输入密码"></el-input>
@@ -21,7 +21,7 @@
     data() {
       return {
         form: {
-          username: '1',
+          id: '1',
           password: '123'
         }
       }
@@ -30,10 +30,11 @@
        onSubmit:function(){
           var url = this.axios.urls.SYS_USER_LOGIN;
             console.log(url);
-           this.axios.post(url).then(resp=>{
+           this.axios.post(url,this.form).then(resp=>{
+              console.log(resp);
                console.log('aaaas');
            }).catch(resp=>{
-               // console.log(resp);
+               console.log(resp);
            });
 
        }

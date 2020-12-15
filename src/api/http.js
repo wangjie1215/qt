@@ -23,10 +23,10 @@ axios.defaults.transformRequest = function(data) {
 
 // 请求拦截器
 axios.interceptors.request.use(function(config) {
-  let jwt = window.vue.$store.getters.getJwt;
-  if (jwt) {
-    config.headers['jwt'] = jwt;
-  }
+  // let jwt = window.vue.$store.getters.getJwt;
+  // if (jwt) {
+  //   config.headers['jwt'] = jwt;
+  // }
   return config;
 }, function(error) {
   return Promise.reject(error);
@@ -34,13 +34,13 @@ axios.interceptors.request.use(function(config) {
 
 // 响应拦截器
 axios.interceptors.response.use(function(response) {
-  let jwt = response.headers['jwt'];
-  console.log(jwt);
-  if (jwt) {
-    window.vue.$store.commit('setJwt', {
-      jwt: jwt
-    });
-  }
+  // let jwt = response.headers['jwt'];
+  // console.log(jwt);
+  // if (jwt) {
+  //   window.vue.$store.commit('setJwt', {
+  //     jwt: jwt
+  //   });
+  // }
   return response;
 }, function(error) {
   return Promise.reject(error);
