@@ -4,7 +4,7 @@
       <el-form ref="form" :model="form" label-width="0px">
 
         <el-form-item class="">
-          <el-input v-model="form.id" placeholder="请输入用户名"></el-input>
+          <el-input v-model="form.account" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item>
           <el-input v-model="form.password" placeholder="请输入密码"></el-input>
@@ -21,7 +21,7 @@
     data() {
       return {
         form: {
-          id: '1',
+          account: 'zs',
           password: '123'
         }
       }
@@ -32,9 +32,10 @@
             console.log(url);
            this.axios.post(url,this.form).then(resp=>{
               console.log(resp);
-               console.log('aaaas');
+              this.$router.push("/Idex");
            }).catch(resp=>{
                console.log(resp);
+                this.$message.error('登陆失败');
            });
 
        }
