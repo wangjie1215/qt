@@ -1,59 +1,100 @@
 <template>
- <div class="login-wrap">
+  <div class="login-wrap">
     <div class="login-container">
-      <el-form ref="form" :model="form" label-width="0px">
-         <div class="title">{{msg}}</div>
-        <el-form-item class="">
-          <el-input v-model="form.account" placeholder="账号/手机号" ></el-input>
+      <el-form ref="form" :model="form" :rules="rules" label-width="0px">
+        <div class="title">
+          <h1>{{msg}}</h1>
+        </div>
+        <el-form-item prop="name">
+          <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+        <el-form-item prop="password">
+          <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
         </el-form-item>
-            <el-button type="primary" @click="onSubmit" style="width: 100%;">登陆</el-button>
-            <!-- <el-button style="margin-top: 5px;float: right;" @click="toreGister">免费注册</el-button> -->
-            <el-link @click="toreGister" style="margin-top: 5px;float: right;" target="_blank">免费注册</el-link>
+        <div align="center">
+          <el-button type="primary" @click="onSubmit" style="width: 30%;">登录</el-button>
+          <el-button type="primary" @click="register" style="width: 30%;">注册</el-button>
+        </div>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
-  export default{
-    name: 'HelloWorld',
+  import axios from 'axios'
+  import qs from 'qs'
+  export default {
+    name: 'Login',
     data() {
       return {
-        msg:"用户登录",
+        msg: '用户登录',
         form: {
-          account: 'zs',
-          password: '123'
+          name: '',
+          password: ''
         },
+        rules: {
+          name: [{
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+          }],
+          password: [{
+            required: true,
+            message: '请输入用户密码',
+            trigger: 'blur'
+          }]
+        }
       }
     },
-    methods:{
-       onSubmit:function(){
-          var url = this.axios.urls.SYS_USER_LOGIN;
-            console.log(url);
-            debugger;
-           this.axios.post(url,this.form).then(resp=>{
+    methods: {
+      //注册按钮
+      register: function() {
+        this.$router.push("/Register");
+      },
+      //登录按钮
+      onSubmit: function() {
+        console.log('ok');
+        this.$refs["form"].validate((valid) => {
+          if (valid) {
+            let url = this.axios.urls.SYS_USER_LOGIN;
+            debugger
+            this.axios.post(url, this.form).then(resp => {
+              debugger
+              this.$message({
+                message: resp.data.message,
+                type: 'success'
+              });
+              if(resp.data.code==-1){
+                 this.$router.push("/Login");
+              }else{
+                this.$router.push({
+                  path: 'Idex',
+                  query: {
+                    usrName: this.form.name
+                  },
+                  });
+              }
+            }).catch(resp => {
               console.log(resp);
-              this.$router.push("/Idex");
-           }).catch(resp=>{
-               console.log(resp);
-                this.$message.error('登陆失败');
-           });
-       },
-       toreGister:function(){
-         this.$router.push("/Register");
-       }
-
+              this.$message.error('登录失败');
+            });
+          } else {
+            this.$message({
+              showClose: true,
+              message: '请填写全部内容',
+              type: 'error'
+            });
+            return false;
+          }
+        });
+      }
     }
-
   }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
-  <style scoped>.login-wrap {
+  .login-wrap {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -69,7 +110,7 @@
     border-radius: 10px;
     margin: 0px auto;
     width: 350px;
-    padding: 30px 35px 50px 35px;
+    padding: 30px 35px 15px 35px;
     background: #fff;
     border: 1px solid #eaeaea;
     text-align: left;
