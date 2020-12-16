@@ -2,14 +2,16 @@
  <div class="login-wrap">
     <div class="login-container">
       <el-form ref="form" :model="form" label-width="0px">
-
+         <div class="title">{{msg}}</div>
         <el-form-item class="">
-          <el-input v-model="form.account" placeholder="请输入用户名"></el-input>
+          <el-input v-model="form.account" placeholder="账号/手机号" ></el-input>
         </el-form-item>
         <el-form-item>
           <el-input v-model="form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
-        <el-button type="primary" @click="onSubmit" style="width: 100%;">用户登陆</el-button>
+            <el-button type="primary" @click="onSubmit" style="width: 100%;">登陆</el-button>
+            <!-- <el-button style="margin-top: 5px;float: right;" @click="toreGister">免费注册</el-button> -->
+            <el-link @click="toreGister" style="margin-top: 5px;float: right;" target="_blank">免费注册</el-link>
       </el-form>
     </div>
   </div>
@@ -20,16 +22,18 @@
     name: 'HelloWorld',
     data() {
       return {
+        msg:"用户登录",
         form: {
           account: 'zs',
           password: '123'
-        }
+        },
       }
     },
     methods:{
        onSubmit:function(){
           var url = this.axios.urls.SYS_USER_LOGIN;
             console.log(url);
+            debugger;
            this.axios.post(url,this.form).then(resp=>{
               console.log(resp);
               this.$router.push("/Idex");
@@ -37,7 +41,9 @@
                console.log(resp);
                 this.$message.error('登陆失败');
            });
-
+       },
+       toreGister:function(){
+         this.$router.push("/Register");
        }
 
     }
@@ -63,7 +69,7 @@
     border-radius: 10px;
     margin: 0px auto;
     width: 350px;
-    padding: 30px 35px 15px 35px;
+    padding: 30px 35px 50px 35px;
     background: #fff;
     border: 1px solid #eaeaea;
     text-align: left;
