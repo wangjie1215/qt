@@ -1,7 +1,10 @@
 <template>
-  <div class="login-wrap">
+
     <div class="login-container">
-      <el-form ref="form" :model="form" :rules="rules" label-width="0px">
+      <div class="login-wrap">
+         <el-tabs v-model="activeName" @tab-click="handleClick" style="100%">
+            <el-tab-pane label="用户名登录" name="first" >
+              <el-form ref="form" :model="form" :rules="rules" label-width="0px">
         <div class="title">
           <h1>{{msg}}</h1>
         </div>
@@ -15,7 +18,27 @@
           <el-button type="primary" @click="onSubmit" style="width: 30%;">登录</el-button>
           <el-button type="primary" @click="register" style="width: 30%;">注册</el-button>
         </div>
-      </el-form>
+      </el-form></el-tab-pane>
+            <el-tab-pane label="验证码登录" name="second">
+              <el-form ref="form" :model="form" :rules="rules" label-width="0px">
+                <div class="title">
+                  <h1>{{msg}}</h1>
+                </div>
+                <el-form-item prop="userPhone">
+                  <el-input v-model="form.userPhone" placeholder="请输入手机号"></el-input>
+                </el-form-item>
+                <el-form-item prop="code">
+                  <el-input placeholder="请输入验证码" v-model="code" style="width:60%" ></el-input>
+                 <el-button type="primary" @click="getYzm" style="width: 35%;">获取验证码</el-button>
+                </el-form-item>
+                <div align="center">
+                  <el-button type="primary" @click="onSubmitP" style="width: 30%;">登录</el-button>
+                  <el-button type="primary" @click="register" style="width: 30%;">注册</el-button>
+                </div>
+              </el-form>
+            </el-tab-pane>
+          </el-tabs>
+
     </div>
   </div>
 </template>
@@ -27,8 +50,13 @@
     name: 'Login',
     data() {
       return {
+        code:'',
+        codea:'',
+        activeName: 'second',
         msg: '用户登录',
         form: {
+          userPhone:'',
+          // code:'',
           name: '',
           password: ''
         },
@@ -42,14 +70,85 @@
             required: true,
             message: '请输入用户密码',
             trigger: 'blur'
-          }]
+          }],
+          userPhone: [{
+            required: true,
+            message: '请输入手机号码',
+            trigger: 'blur'
+          }],
+          // code: [{
+          //   required: true,
+          //   message: '请输入验证码',
+          //   trigger: 'blur'
+          // }]
         }
       }
     },
     methods: {
+      //手机验证
+      getYzm(){
+        let url = this.axios.urls.SYS_USER_PHONEYZ;
+        this.axios.post(url,this.form).then(resp => {
+          debugger
+          console.log(resp.data.code);
+          this.codea=resp.data.code;
+          console.log(this.codea);
+          console.log("ok");
+        }).catch(resp => {
+          console.log(resp);
+        });
+      },
+      //登录转换
+       handleClick(tab, event) {
+              console.log(tab, event);
+            },
       //注册按钮
       register: function() {
         this.$router.push("/Register");
+      },
+      //验证码登录
+      onSubmitP:function(){
+        debugger
+        this.$refs["form"].validate((valid) => {
+          if (valid) {
+
+            let url = this.axios.urls.SYS_USER_LOGINP;
+            debugger
+
+            this.axios.post(url, this.form).then(resp => {
+              debugger
+              this.$message({
+                message: resp.data.message,
+                type: 'success'
+              });
+              debugger
+              if(this.codea!=this.code){
+               this.$message({
+                 message: '验证码错误',
+                 type: 'success'
+               });
+                 this.$router.push("/Login");
+              }else{
+                this.$router.push({
+                  path: 'Home',
+                  query: {
+                    usrName: this.form.name
+                  },
+                  });
+              }
+            }).catch(resp => {
+              console.log(resp);
+              this.$message.error('登录失败');
+            });
+          } else {
+            this.$message({
+              showClose: true,
+              message: '请填写全部内容',
+              type: 'error'
+            });
+            return false;
+          }
+        });
       },
       //登录按钮
       onSubmit: function() {
@@ -68,7 +167,7 @@
                  this.$router.push("/Login");
               }else{
                 this.$router.push({
-                  path: 'Idex',
+                  path: 'Home',
                   query: {
                     usrName: this.form.name
                   },

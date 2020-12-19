@@ -11,8 +11,15 @@
         <el-form-item prop="password">
           <el-input v-model="form.password" placeholder="请输入密码"></el-input>
         </el-form-item>
+        <el-form-item prop="userPhone">
+          <el-input v-model="form.userPhone" placeholder="请输入手机号码"></el-input>
+        </el-form-item>
+        <el-form-item prop="code">
+          <el-input v-model="code" placeholder="请输入验证码" style="width: 60%;"></el-input>
+          <el-button type="primary" @click="getYzm" style="width: 38%;">获取验证码</el-button>
+        </el-form-item>
         <div align="center">
-          <el-button type="primary" @click="onSubmit" style="width: 30%;">确定</el-button>
+          <el-button type="primary" @click="onSubmit" style="width: 30%;">注册</el-button>
           <el-button type="primary" @click="register" style="width: 30%;">返回</el-button>
         </div>
       </el-form>
@@ -28,9 +35,13 @@
     data() {
       return {
         msg: '用户注册',
+        code:'',
+        codea:'',
         form: {
           name: '',
-          password: ''
+          password: '',
+          userPhone:'',
+          // code:''
         },
         rules: {
           name: [{
@@ -38,26 +49,59 @@
             message: '请输入用户名',
             trigger: 'blur'
           }],
-          password: [{
+          password:[{
             required: true,
             message: '请输入用户密码',
             trigger: 'blur'
-          }]
+          }],
+          userPhone:[{
+            required: true,
+            message: '请输入手机号码',
+            trigger: 'blur'
+          }],
+          // code:[{
+          //   required: true,
+          //   message: '请输入验证码',
+          //   trigger: 'blur'
+          // }]
         }
       }
     },
     methods: {
+      //手机验证
+     getYzm(){
+       let url = this.axios.urls.SYS_USER_PHONEYZ;
+       this.axios.post(url,this.form).then(resp => {
+         debugger
+         console.log(resp.data.code);
+         this.codea=resp.data.code;
+         console.log(this.codea);
+         console.log("ok");
+       }).catch(resp => {
+         console.log(resp);
+       });
+     },
       //确定按钮
       onSubmit: function() {
         this.$refs["form"].validate((valid) => {
           if (valid) {
             let url = this.axios.urls.SYS_USER_ZC;
+            debugger
             this.axios.post(url, this.form).then(resp => {
-              this.$message({
-                message: '注册成功',
-                type: 'success'
-              });
-              this.$router.push("/Login");
+              debugger
+              if(this.codea!=this.code){
+                  this.$message({
+                    message: '验证码错误',
+                    type: 'success'
+                  });
+                    this.$router.push("/Register");
+              }else{
+                this.$message({
+                  message: '注册成功',
+                  type: 'success'
+                });
+                this.$router.push("/Login");
+              }
             }).catch(resp => {
               this.$message.error('注册失败');
             });
