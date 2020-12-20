@@ -52,7 +52,7 @@
       return {
         code:'',
         codea:'',
-        activeName: 'second',
+        activeName: 'first',
         msg: '用户登录',
         form: {
           userPhone:'',
@@ -71,11 +71,11 @@
             message: '请输入用户密码',
             trigger: 'blur'
           }],
-          userPhone: [{
-            required: true,
-            message: '请输入手机号码',
-            trigger: 'blur'
-          }],
+          // userPhone: [{
+          //   required: true,
+          //   message: '请输入手机号码',
+          //   trigger: 'blur'
+          // }],
           // code: [{
           //   required: true,
           //   message: '请输入验证码',
@@ -134,7 +134,7 @@
                 this.$router.push({
                   path: 'Home',
                   query: {
-                    usrName: this.form.name
+                    name: this.form.name
                   },
                   });
               }
@@ -171,7 +171,7 @@
                 this.$router.push({
                   path: 'Home',
                   query: {
-                    usrName: this.form.name
+                    name: this.form.name
                   },
                   });
               }

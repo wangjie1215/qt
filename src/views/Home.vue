@@ -186,6 +186,7 @@
       this.init()
     },
     methods: {
+
       denglu: function() {
         this.$router.push("/Login");
       },
@@ -252,6 +253,8 @@
         window.clearInterval(this.timer)
         this.timer = null
       }
+
+      
     }
   }
 </script>
