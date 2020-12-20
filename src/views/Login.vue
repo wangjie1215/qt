@@ -36,7 +36,7 @@
             debugger;
            this.axios.post(url,this.form).then(resp=>{
               console.log(resp);
-              this.$router.push("/Idex");
+              this.$router.push("/Home");
            }).catch(resp=>{
                console.log(resp);
                 this.$message.error('登陆失败');

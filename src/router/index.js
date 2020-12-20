@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/views/Login.vue'
-import Idex from '@/views/Idex.vue'
+import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
+import Newshiwei from '@/views/Newshiwei.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Login',
       component: Login
@@ -20,14 +20,20 @@ export default new Router({
       component: Login
     },
     {
-      path: '/Idex',
-      name: 'Idex',
-      component: Idex
+      path: '/Home',
+      name: 'Home',
+      component: Home
     },
     {
       path: '/Register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/Newshiwei',
+      name: 'Newshiwei',
+      component: Newshiwei
     }
+
   ]
 })
