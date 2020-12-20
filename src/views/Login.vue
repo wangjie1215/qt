@@ -52,7 +52,7 @@
       return {
         code:'',
         codea:'',
-        activeName: 'second',
+        activeName: 'first',
         msg: '用户登录',
         form: {
           userPhone:'',
@@ -85,7 +85,7 @@
       }
     },
 
-    
+
     methods: {
       //手机验证
       getYzm(){
@@ -134,7 +134,7 @@
                 this.$router.push({
                   path: 'Home',
                   query: {
-                    usrName: this.form.name
+                    name: this.form.name
                   },
                   });
               }
@@ -171,7 +171,7 @@
                 this.$router.push({
                   path: 'Home',
                   query: {
-                    userPhone: this.form.userPhone
+                    name: this.form.name
                   },
                   });
               }

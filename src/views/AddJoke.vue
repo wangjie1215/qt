@@ -7,11 +7,12 @@
          <el-input v-model="ruleForm.title" placeholder="请输入标题" style='width: 500px' clearable></el-input>
          </el-form-item>
          <el-form-item label="段子种类">
-             <el-select v-model="ruleForm.type" placeholder="ruleForm.type">
+             <el-select v-model="ruleForm.category" placeholder="ruleForm.category">
                  <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                  </el-option>
              </el-select>
          </el-form-item>
+
          <el-form-item label="上传首页图片">
              <el-input placeholder="请在这里粘贴图片地址" v-model="ruleForm.coverImg" style='width: 500px;margin-bottom: 10px'>
              </el-input>
@@ -30,17 +31,17 @@
                  <el-checkbox name='tags' label="1" border size="medium">荤笑话</el-checkbox>
                  <el-checkbox name='tags' label="2" border size="medium">精分</el-checkbox>
                  <div style="margin-top: 10px">
-                     <el-checkbox name='tags' label="3" border size="medium">脑残</el-checkbox>
-                     <el-checkbox name='tags' label="4" border size="medium">冷笑话</el-checkbox>
+                    <el-checkbox name='tags' label="3" border size="medium">脑残</el-checkbox>
+                    <el-checkbox name='tags' label="4" border size="medium">冷笑话</el-checkbox>
                  </div>
              </el-checkbox-group>
          </el-form-item>
-          <div class="hello">
-              <quill-editor></quill-editor>
+         <div class="hello">
+              <quill-editor v-model="ruleForm.contenthtml"></quill-editor>
             </div>
              <el-form-item class='edit-btn'>
-                 <el-button @click="submitForm('ruleForm')" type="primary">提交</el-button>
-                 <el-button @click="resetForm('ruleForm')">重置</el-button>
+                 <el-button @click="submitForm" type="primary">提交</el-button>
+                 <el-button @click="resetForm">重置</el-button>
          </el-form-item>
       </el-form>
     </el-col>
@@ -53,11 +54,11 @@
   export default {
     data() {
              return {
-                        info: {},
-                        baseUrl:'',
-                        input: '',
-                        editorContent: '',
-                        editorText: '',
+                        // info: {},
+                        // baseUrl:'',
+                        // input: '',
+                        // editorContent: '',
+                        // editorText: '',
                         options: [{
                             value: '0',
                             label: '网络'
@@ -71,9 +72,10 @@
                         value: '',
                         ruleForm: {
                             title: '',
-                            type: '0',
+                            category: '0',
                             tags: ['0'],
-                            coverImg: ''
+                            coverImg: '',
+                            contenthtml:''
                         },
                         rules: {
                             title: [
@@ -81,11 +83,46 @@
                                 { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
                             ],
                             tags: [
-                                { type: 'array', required: true, message: '请至少选择一个标签', trigger: 'change' }
+                                { category: 'array', required: true, message: '请至少选择一个标签', trigger: 'change' }
                             ]
                         }
                     }
                 },
+    methods:{
+      submitForm:function(){
+        console.log("submitForm");
+        // his.$refs["ruleForm"].validate((valid) => {
+          debugger;
+          // if (valid) {
+            var url = this.axios.urls.SYS_ADDJOKE;
+            debugger;
+
+             console.log(this.ruleForm.tags);
+             this.$set(this.ruleForm,'tags',this.ruleForm.tags.join("/"));
+            this.axios.post(url, this.ruleForm).then(resp => {
+            debugger;
+              console.log(resp);
+              if (resp.data.code == 0) {
+                this.$message({
+                  message: resp.data.message,
+                  type: 'success'
+                });
+              }
+              // this.search();
+            }).create(resp => {
+              console.log(resp);
+              this.$message.error(resp.data.message);
+            });
+          // } else {
+          //   return false;
+          // }
+        // });
+      },
+      resetForm:function(){
+        console.log("resetForm");
+      }
+
+                }
     }
 </script>
 
