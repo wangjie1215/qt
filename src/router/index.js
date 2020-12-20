@@ -6,11 +6,10 @@ import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
 import AddJoke from '@/views/AddJoke.vue'
 import Newshiwei from '@/views/Newshiwei.vue'
-<<<<<<< HEAD
+
 import test from '@/views/test.vue'
-=======
-import AppMain from '@/views/AppMain.vue'
->>>>>>> ee79e4323b2830edf87376e02827c573253702e9
+
+
 
 
 Vue.use(Router)
@@ -41,26 +40,18 @@ export default new Router({
       path: '/AddJoke',
       name: 'AddJoke',
       component: AddJoke
-	},
-	{
+    },
+    {
       path: '/Newshiwei',
       name: 'Newshiwei',
       component: Newshiwei
-<<<<<<< HEAD
-    },{
+
+    }, {
       path: '/test',
       name: 'test',
       component: test
     }
-=======
-    },
-    {
-        path: '/AppMain',
-        name: 'AppMain',
-        component: AppMain,
-        
-      }
->>>>>>> ee79e4323b2830edf87376e02827c573253702e9
+
 
   ]
 })
