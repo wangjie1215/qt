@@ -5,6 +5,7 @@ import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
 import Newshiwei from '@/views/Newshiwei.vue'
+import Personal from '@/views/Personal.vue'
 
 Vue.use(Router)
 
@@ -33,7 +34,11 @@ export default new Router({
       path: '/Newshiwei',
       name: 'Newshiwei',
       component: Newshiwei
+    },
+    {
+      path: '/Personal',
+      name: 'Personal',
+      component: Personal
     }
-
   ]
 })

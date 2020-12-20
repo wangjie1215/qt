@@ -57,8 +57,8 @@
         form: {
           userPhone:'',
           // code:'',
-          name: '',
-          password: ''
+          name: 'zs',
+          password: '123'
         },
         rules: {
           name: [{
@@ -85,7 +85,7 @@
       }
     },
 
-    
+
     methods: {
       //手机验证
       getYzm(){

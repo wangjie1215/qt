@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div align="left">
+    <div>
       <a><img src="../assets/img/logo.png" /></a>
     </div>
 
@@ -8,14 +8,14 @@
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
         background-color="white" text-color="black" active-text-color="violet">
         <el-menu-item index="1"><el-link href="#/Home">首页</el-link></el-menu-item>
-        <el-menu-item index="2"><el-link href="#/guoji">国际</el-link></el-menu-item>
-        <el-menu-item index="3"><el-link href="#/guonei">国内</el-link></el-menu-item>
-        <el-menu-item index="4"><el-link href="#/shehui">社会</el-link></el-menu-item>
-        <el-menu-item index="5"><el-link href="#/yule">娱乐</el-link></el-menu-item>
-        <el-menu-item index="6"><el-link href="#/caijing">财经</el-link></el-menu-item>
-        <el-menu-item index="7"><el-link href="#/tiyu">体育</el-link></el-menu-item>
-        <el-menu-item index="8"><el-link href="#/juehsi">军事</el-link></el-menu-item>
-        <el-menu-item index="9"><el-link href="#/keji">科技</el-link></el-menu-item>
+        <el-menu-item index="2">国际</el-menu-item>
+        <el-menu-item index="3">国内</el-menu-item>
+        <el-menu-item index="4">社会</el-menu-item>
+        <el-menu-item index="5">娱乐</el-menu-item>
+        <el-menu-item index="6">财经</el-menu-item>
+        <el-menu-item index="7">体育</el-menu-item>
+        <el-menu-item index="8">军事</el-menu-item>
+        <el-menu-item index="9">科技</el-menu-item>
         <div style="padding-left: 200px;margin-top: 20px;">
           <el-button type="primary" plain @click="shousuo">返回首页</el-button>
         </div>
