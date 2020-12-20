@@ -5,13 +5,13 @@ import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
 import AddJoke from '@/views/AddJoke.vue'
+import Newshiwei from '@/views/Newshiwei.vue'
 
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Login',
       component: Login
@@ -32,9 +32,16 @@ export default new Router({
       component: Register
     },
     {
+
       path: '/AddJoke',
       name: 'AddJoke',
       component: AddJoke
+	},
+	{
+      path: '/Newshiwei',
+      name: 'Newshiwei',
+      component: Newshiwei
     }
+
   ]
 })
