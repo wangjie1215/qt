@@ -12,6 +12,14 @@ import VueAxios from 'vue-axios'
 import App from './App'
 import router from './router'
 
+//引入vue-quill-editor 富文本编辑器
+import VueQuillEditor from "vue-quill-editor/src";
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+Vue.use(VueQuillEditor)
+
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)   //新添加3  vue使用element-ui
 Vue.use(VueAxios,axios)

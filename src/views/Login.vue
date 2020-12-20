@@ -71,11 +71,11 @@
             message: '请输入用户密码',
             trigger: 'blur'
           }],
-          userPhone: [{
-            required: true,
-            message: '请输入手机号码',
-            trigger: 'blur'
-          }],
+          // userPhone: [{
+          //   required: true,
+          //   message: '请输入手机号码',
+          //   trigger: 'blur'
+          // }],
           // code: [{
           //   required: true,
           //   message: '请输入验证码',
@@ -169,7 +169,7 @@
                 this.$router.push({
                   path: 'Home',
                   query: {
-                    usrName: this.form.name
+                    userPhone: this.form.userPhone
                   },
                   });
               }

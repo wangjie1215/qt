@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/views/Login.vue'
-import Idex from '@/views/Idex.vue'
+import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
+import AddJoke from '@/views/AddJoke.vue'
+
 
 Vue.use(Router)
 
@@ -20,14 +22,19 @@ export default new Router({
       component: Login
     },
     {
-      path: '/Idex',
-      name: 'Idex',
-      component: Idex
+      path: '/Home',
+      name: 'Home',
+      component: Home
     },
     {
       path: '/Register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/AddJoke',
+      name: 'AddJoke',
+      component: AddJoke
     }
   ]
 })
