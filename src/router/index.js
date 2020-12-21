@@ -8,13 +8,13 @@ import AddJoke from '@/views/AddJoke.vue'
 import Newshiwei from '@/views/Newshiwei.vue'
 import AppMain from '@/views/AppMain.vue'
 
-// import test from '@/views/test.vue'
+import Personal from '@/views/Personal.vue'
+
 
 
 
 
 Vue.use(Router)
-
 export default new Router({
   routes: [{
       path: '/',
@@ -54,6 +54,12 @@ export default new Router({
       component: AppMain
 
     },
+      path: '/Personal',
+      name: 'Personal',
+      component: Personal
+
+
+    }
 
 
   ]

@@ -57,8 +57,8 @@
         form: {
           userPhone:'',
           // code:'',
-          name: '',
-          password: ''
+          name: 'zs',
+          password: '123'
         },
         rules: {
           name: [{
