@@ -7,14 +7,14 @@
     <div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <div align="right">
-          <el-input placeholder="搜索站内资讯或用户" style="width: 240px;"></el-input>
+          <el-input v-model="title" placeholder="搜索站内资讯或用户" style="width: 240px;"></el-input>
           <el-button type="primary" @click="shousuo">搜索</el-button>
           <el-button type="warning" @click="denglu">登录</el-button>
           <el-button type="danger" @click="zhuce">注册</el-button>
           <el-button type="success" @click="gerenzhongxin">个人中心</el-button>
           <el-dropdown>
             <el-button type="info">
-              更多菜单<i class="el-icon-arrow-down el-icon--right"></i>
+              用户<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>用户名：zs</el-dropdown-item>
@@ -37,11 +37,11 @@
               </li>
             </ul>
             <ul class="direction">
-              <li class="left" @click="move(600, 1, speed)">
+              <li class="left" @click="move(1200, 1, speed)">
                 <svg class="icon" width="30px" height="30.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#ffffff" d="M481.233 904c8.189 0 16.379-3.124 22.628-9.372 12.496-12.497 12.496-32.759 0-45.256L166.488 512l337.373-337.373c12.496-12.497 12.496-32.758 0-45.255-12.498-12.497-32.758-12.497-45.256 0l-360 360c-12.496 12.497-12.496 32.758 0 45.255l360 360c6.249 6.249 14.439 9.373 22.628 9.373z" /></svg>
               </li>
-              <li class="right" @click="move(600, -1, speed)">
+              <li class="right" @click="move(1200, -1, speed)">
                 <svg class="icon" width="30px" height="30.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#ffffff" d="M557.179 904c-8.189 0-16.379-3.124-22.628-9.372-12.496-12.497-12.496-32.759 0-45.256L871.924 512 534.551 174.627c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0l360 360c12.496 12.497 12.496 32.758 0 45.255l-360 360c-6.249 6.249-14.439 9.373-22.628 9.373z" /></svg>
               </li>
@@ -53,7 +53,7 @@
         </div>
 
         <el-tab-pane label="首页" name="first">
-          <div class="boxleft">
+          <div class="boxleft" :data="jokeList">
             <div class="left-container">
               <div class="left-img">
                 <a><img src="../assets/img/111aaa.jpg"></a>
@@ -124,7 +124,7 @@
 
     <div>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
-        :page-sizes="[5,10,15,1000]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        :page-sizes="[5,10,15,20]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -145,24 +145,21 @@
     },
     data() {
       return {
+        title:'',
+        jokeList:'',
         activeName: 'first',
         total: '',
         page: '1',
         rows: '5',
-        sliders: [{
+        sliders: [
+          {
+            img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1608459251646&di=25c27301df8d1d7c4cc4ffa1bbb89bb0&imgtype=0&src=http%3A%2F%2Fp2.itc.cn%2Fimages01%2F20200608%2F7f3abea0b8634752a487ecc7ac0c01bb.jpeg'
+          },
+          {
             img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1454591439,1189113536&fm=26&gp=0.jpg'
           },
           {
             img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1062441701,4278788533&fm=26&gp=0.jpg'
-          },
-          {
-            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2662054854,2653677456&fm=26&gp=0.jpg'
-          },
-          {
-            img: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2373040604,1349962665&fm=26&gp=0.jpg'
-          },
-          {
-            img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1608459251646&di=25c27301df8d1d7c4cc4ffa1bbb89bb0&imgtype=0&src=http%3A%2F%2Fp2.itc.cn%2Fimages01%2F20200608%2F7f3abea0b8634752a487ecc7ac0c01bb.jpeg'
           },
         ],
         imgWidth: 1200,
@@ -186,7 +183,30 @@
       this.init()
     },
     methods: {
-
+      //修改页大小
+      handleSizeChange: function(size) {
+        this.rows = size;
+        this.shousuo();
+      },
+      handleCurrentChange: function(page) {
+        this.page = page;
+        this.shousuo();
+      },
+      shousuo:function(){
+        let data={
+          title:this.title,
+          rows:this.rows,
+          page:this.page
+        }
+        var url = this.axios.urls.SYS_LISTLIKEJOKE;
+        this.axios.post(url,data).then(resp=>{
+          console.log(resp);
+          this.jokeList=resp.data.result;
+          this.total=resp.data.total;
+        }).catch(resp=>{
+          console.log(resp);
+        })
+      },
       denglu: function() {
         this.$router.push("/Login");
       },
@@ -209,9 +229,9 @@
         console.log(speed)
         if (!this.transitionEnd) return
         this.transitionEnd = false
-        direction === -1 ? this.currentIndex += offset / 600 : this.currentIndex -= offset / 600
-        if (this.currentIndex > 5) this.currentIndex = 1
-        if (this.currentIndex < 1) this.currentIndex = 5
+        direction === -1 ? this.currentIndex += offset / 1200 : this.currentIndex -= offset / 1200
+        if (this.currentIndex > 3) this.currentIndex = 1
+        if (this.currentIndex < 1) this.currentIndex = 3
 
         const destination = this.distance + offset * direction
         this.animate(destination, direction, speed)
@@ -228,14 +248,14 @@
             this.transitionEnd = true
             window.clearInterval(this.temp)
             this.distance = des
-            if (des < -3000) this.distance = -600
-            if (des > -600) this.distance = -3000
+            if (des < -3000) this.distance = -1200
+            if (des > -1200) this.distance = -3000
           }
         }, 20)
       },
       jump(index) {
         const direction = index - this.currentIndex >= 0 ? -1 : 1;
-        const offset = Math.abs(index - this.currentIndex) * 600;
+        const offset = Math.abs(index - this.currentIndex) * 1200;
         const jumpSpeed = Math.abs(index - this.currentIndex) === 0 ? this.speed : Math.abs(index - this.currentIndex) *
           this.speed;
         this.move(offset, direction, jumpSpeed)
@@ -246,15 +266,16 @@
           this.timer = null
         }
         this.timer = window.setInterval(() => {
-          this.move(600, -1, this.speed)
+          this.move(1200, -1, this.speed)
         }, this.interval)
       },
       stop() {
         window.clearInterval(this.timer)
         this.timer = null
       }
-
-      
+    },
+    created:function(){
+      this.shousuo();
     }
   }
 </script>

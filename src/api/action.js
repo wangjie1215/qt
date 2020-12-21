@@ -11,6 +11,7 @@ export default {
   'SYS_USER_PHONEYZ':'/phoneYz',//短信验证
   'SYS_ADDJOKE':'/AddJoke',//新增joke
   'SYS_LISTBYIDJOKE':'/ListByIdJoke',//查单个joke
+  'SYS_LISTLIKEJOKE':'/ListlikeJoke',//查所有joke
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
     return this.SERVER + this[k];
   }
