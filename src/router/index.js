@@ -52,11 +52,12 @@ export default new Router({
       component: Personal
 
 
-    }, {
-      path: '/test',
-      name: 'test',
-      component: test
     }
+    // , {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: test
+    // }
 
 
   ]
