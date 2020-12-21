@@ -7,8 +7,10 @@ import Register from '@/views/Register.vue'
 import AddJoke from '@/views/AddJoke.vue'
 import Newshiwei from '@/views/Newshiwei.vue'
 import AppMain from '@/views/AppMain.vue'
-
+import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
+import List from '@/views/List.vue'
+import list2 from '@/views/list2.vue'
 
 
 
@@ -54,13 +56,31 @@ export default new Router({
       component: AppMain
 
     },
+    {
       path: '/Personal',
       name: 'Personal',
       component: Personal
 
 
-    }
+    },
+    {
+      path: '/Admin',
+      name: 'Admin',
+      component: Admin
 
+    },
+    {
+      path: '/List',
+      name: 'List',
+      component: List
+
+    },
+    {
+      path: '/list2',
+      name: 'list2',
+      component: list2
+
+    }
 
   ]
 })

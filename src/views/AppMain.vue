@@ -21,36 +21,28 @@
 
 	// 导出模块
 	export default {
-
-
-    components: { //2.注册组件
-      LeftNav,
-    	TopNav,
-
-    },
-
-    // created:function() {
-    //   this.$root.Bus.$on("abcd",(v)){
-    //    return this.collapsed = v;
-    //   });
-    // },
-    computed:{
-      className:function(){
-       return this.collapsed?'main-aside-collapsed':'main-aside'
-      }
-    },
-    
-
-
 		data: function() {
 			return {
-				// collapsed: false
+				collapsed: false
 			}
-
+	
 		},
-
+		components: { //2.注册组件
+			TopNav,
+			LeftNav
+		},
+	  created:function(){
+	    this.$root.Bus.$on('abcd',(v)=>{
+	     return this.collapsed =v;
+	    });
+	
+	  },
+	  computed:{
+	    className:function(){
+	      return this.collapsed?'main-aside-collapsed':'main-aside';
+	    }
+	  }
 	};
-
 </script>
 <style scoped>
 	.main-container {
