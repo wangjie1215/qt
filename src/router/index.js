@@ -6,8 +6,9 @@ import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
 import AddJoke from '@/views/AddJoke.vue'
 import Newshiwei from '@/views/Newshiwei.vue'
+import AppMain from '@/views/AppMain.vue'
 
-import test from '@/views/test.vue'
+// import test from '@/views/test.vue'
 
 
 
@@ -46,11 +47,13 @@ export default new Router({
       name: 'Newshiwei',
       component: Newshiwei
 
-    }, {
-      path: '/test',
-      name: 'test',
-      component: test
-    }
+    },
+    {
+      path: '/AppMain',
+      name: 'AppMain',
+      component: AppMain
+
+    },
 
 
   ]
