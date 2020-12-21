@@ -92,9 +92,21 @@
               if(this.codea!=this.code){
                   this.$message({
                     message: '验证码错误',
-                    type: 'success'
+                    type: 'error'
                   });
                     this.$router.push("/Register");
+              }else if(resp.data.code==-2){
+                this.$message({
+                  message: '该账号已被注册',
+                  type: 'error'
+                });
+                  this.$router.push("/Register");
+              }else if(resp.data.code==-3){
+                this.$message({
+                  message: '该手机号已被注册',
+                  type: 'error'
+                });
+                  this.$router.push("/Register");
               }else{
                 this.$message({
                   message: '注册成功',

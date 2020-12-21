@@ -1,44 +1,21 @@
 <template>
-
+  <div class="login-wrap">
     <div class="login-container">
-      <div class="login-wrap">
-         <el-tabs v-model="activeName" @tab-click="handleClick" style="100%">
-            <el-tab-pane label="用户名登录" name="first" >
-              <el-form ref="form" :model="form" :rules="rules" label-width="0px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="0px">
         <div class="title">
           <h1>{{msg}}</h1>
         </div>
-        <el-form-item prop="name">
-          <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+        <el-form-item prop="usrName">
+          <el-input v-model="form.usrName" placeholder="请输入用户名"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
-          <el-input placeholder="请输入密码" v-model="form.password" show-password></el-input>
+        <el-form-item prop="usrPassword">
+          <el-input placeholder="请输入密码" v-model="form.usrPassword" show-password></el-input>
         </el-form-item>
         <div align="center">
           <el-button type="primary" @click="onSubmit" style="width: 30%;">登录</el-button>
           <el-button type="primary" @click="register" style="width: 30%;">注册</el-button>
         </div>
-      </el-form></el-tab-pane>
-            <el-tab-pane label="验证码登录" name="second">
-              <el-form ref="formp" :model="formp" :rules="rules" label-width="0px">
-                <div class="title">
-                  <h1>{{msg}}</h1>
-                </div>
-                <el-form-item prop="userPhone">
-                  <el-input v-model="formp.userPhone" placeholder="请输入手机号"></el-input>
-                </el-form-item>
-                <el-form-item prop="code">
-                  <el-input placeholder="请输入验证码" v-model="code" style="width:60%" ></el-input>
-                 <el-button type="primary" @click="getYzm" style="width: 35%;">获取验证码</el-button>
-                </el-form-item>
-                <div align="center">
-                  <el-button type="primary" @click="onSubmitP" style="width: 30%;">登录</el-button>
-                  <el-button type="primary" @click="register" style="width: 30%;">注册</el-button>
-                </div>
-              </el-form>
-            </el-tab-pane>
-          </el-tabs>
-
+      </el-form>
     </div>
   </div>
 </template>
@@ -50,132 +27,47 @@
     name: 'Login',
     data() {
       return {
-        code:'',
-        codea:'',
-        activeName: 'first',
-        msg: '用户登录',
-        formp:{
-           userPhone:'',
-           code:'',
-        },
+        msg: '管理员',
         form: {
-          name: '',
-          password: ''
+          usrName: '',
+          usrPassword: ''
         },
         rules: {
-          name: [{
+          usrName: [{
             required: true,
             message: '请输入用户名',
             trigger: 'blur'
           }],
-          password: [{
+          usrPassword: [{
             required: true,
             message: '请输入用户密码',
             trigger: 'blur'
-          }],
-          userPhone: [{
-            required: true,
-            message: '请输入手机号码',
-            trigger: 'blur'
-          }],
-          // code: [{
-          //   required: true,
-          //   message: '请输入验证码',
-          //   trigger: 'blur'
-          // }]
+          }]
         }
       }
     },
-
-
     methods: {
-      //手机验证
-      getYzm(){
-        let url = this.axios.urls.SYS_USER_PHONEYZ;
-        this.axios.post(url,this.form).then(resp => {
-          debugger
-          console.log(resp.data.code);
-          this.codea=resp.data.code;
-          console.log(this.codea);
-          console.log("ok");
-        }).catch(resp => {
-          console.log(resp);
-        });
-      },
-      //登录转换
-       handleClick(tab, event) {
-              console.log(tab, event);
-            },
       //注册按钮
       register: function() {
-        this.$router.push("/Register");
-      },
-      //验证码登录
-      onSubmitP:function(){
-        this.$refs["formp"].validate((valid) => {
-          if (valid) {
-
-            let url = this.axios.urls.SYS_USER_LOGINP;
-            debugger
-
-            this.axios.post(url, this.formp).then(resp => {
-              debugger
-              this.$message({
-                message: resp.data.message,
-                type: 'success'
-              });
-              debugger
-              if(this.codea!=this.code){
-               this.$message({
-                 message: '验证码错误',
-                 type: 'error'
-               });
-                 this.$router.push("/Login");
-              }else{
-                this.$router.push({
-                  path: 'Home',
-                  query: {
-                    name: this.form.name
-                  },
-                  });
-              }
-            }).catch(resp => {
-              console.log(resp);
-              this.$message.error('登录失败');
-            });
-          } else {
-            this.$message({
-              showClose: true,
-              message: '请填写全部内容',
-              type: 'error'
-            });
-            return false;
-          }
-        });
+        this.$router.push("Register");
       },
       //登录按钮
       onSubmit: function() {
         console.log('ok');
         this.$refs["form"].validate((valid) => {
           if (valid) {
-            var url = this.axios.urls.SYS_USER_LOGIN;
-            debugger
+            let url = this.axios.urls.SYSTEM_USER_DOLOGIN;
             this.axios.post(url, this.form).then(resp => {
-              debugger
               this.$message({
                 message: resp.data.message,
                 type: 'success'
               });
-              if(resp.data.code==-1){
-                 this.$router.push("/Login");
-              }else{
-                this.$router.push({
-                  path: 'Home',
-                  query: {
-                    name: this.form.name
-                  },
-                  });
-              }
+              this.$router.push({
+                path: 'AppMain',
+                query: {
+                  usrName: this.form.usrName
+                },
+              });
             }).catch(resp => {
               console.log(resp);
               this.$message.error('登录失败');
