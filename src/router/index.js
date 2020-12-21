@@ -60,8 +60,6 @@ export default new Router({
       path: '/Personal',
       name: 'Personal',
       component: Personal
-
-
     },
     {
       path: '/Admin',
@@ -79,6 +77,13 @@ export default new Router({
       path: '/list2',
       name: 'list2',
       component: list2
+    }
+    // , {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: test
+    // }
+
 
     }
 
