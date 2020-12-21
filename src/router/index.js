@@ -54,6 +54,7 @@ export default new Router({
       component: AppMain
 
     },
+    {
       path: '/Personal',
       name: 'Personal',
       component: Personal

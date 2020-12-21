@@ -20,12 +20,12 @@
         </div>
       </el-form></el-tab-pane>
             <el-tab-pane label="验证码登录" name="second">
-              <el-form ref="form" :model="form" :rules="rules" label-width="0px">
+              <el-form ref="formp" :model="formp" :rules="rules" label-width="0px">
                 <div class="title">
                   <h1>{{msg}}</h1>
                 </div>
                 <el-form-item prop="userPhone">
-                  <el-input v-model="form.userPhone" placeholder="请输入手机号"></el-input>
+                  <el-input v-model="formp.userPhone" placeholder="请输入手机号"></el-input>
                 </el-form-item>
                 <el-form-item prop="code">
                   <el-input placeholder="请输入验证码" v-model="code" style="width:60%" ></el-input>
@@ -54,11 +54,13 @@
         codea:'',
         activeName: 'first',
         msg: '用户登录',
+        formp:{
+           userPhone:'',
+           code:'',
+        },
         form: {
-          userPhone:'',
-          // code:'',
-          name: 'zs',
-          password: '123'
+          name: '',
+          password: ''
         },
         rules: {
           name: [{
@@ -71,11 +73,11 @@
             message: '请输入用户密码',
             trigger: 'blur'
           }],
-          // userPhone: [{
-          //   required: true,
-          //   message: '请输入手机号码',
-          //   trigger: 'blur'
-          // }],
+          userPhone: [{
+            required: true,
+            message: '请输入手机号码',
+            trigger: 'blur'
+          }],
           // code: [{
           //   required: true,
           //   message: '请输入验证码',
@@ -110,14 +112,13 @@
       },
       //验证码登录
       onSubmitP:function(){
-        debugger
-        this.$refs["form"].validate((valid) => {
+        this.$refs["formp"].validate((valid) => {
           if (valid) {
 
             let url = this.axios.urls.SYS_USER_LOGINP;
             debugger
 
-            this.axios.post(url, this.form).then(resp => {
+            this.axios.post(url, this.formp).then(resp => {
               debugger
               this.$message({
                 message: resp.data.message,
@@ -127,7 +128,7 @@
               if(this.codea!=this.code){
                this.$message({
                  message: '验证码错误',
-                 type: 'success'
+                 type: 'error'
                });
                  this.$router.push("/Login");
               }else{
@@ -157,7 +158,7 @@
         console.log('ok');
         this.$refs["form"].validate((valid) => {
           if (valid) {
-            let url = this.axios.urls.SYS_USER_LOGIN;
+            var url = this.axios.urls.SYS_USER_LOGIN;
             debugger
             this.axios.post(url, this.form).then(resp => {
               debugger
