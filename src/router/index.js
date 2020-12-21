@@ -6,6 +6,8 @@ import Home from '@/views/Home.vue'
 import Register from '@/views/Register.vue'
 import AddJoke from '@/views/AddJoke.vue'
 import Newshiwei from '@/views/Newshiwei.vue'
+import AppMain from '@/views/AppMain.vue'
+
 import Personal from '@/views/Personal.vue'
 
 
@@ -47,6 +49,11 @@ export default new Router({
 
     },
     {
+      path: '/AppMain',
+      name: 'AppMain',
+      component: AppMain
+
+    },
       path: '/Personal',
       name: 'Personal',
       component: Personal
