@@ -9,7 +9,6 @@ import Newshiwei from '@/views/Newshiwei.vue'
 import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
-import List from '@/views/List.vue'
 import list2 from '@/views/list2.vue'
 
 
@@ -69,25 +68,9 @@ export default new Router({
 
     },
     {
-      path: '/List',
-      name: 'List',
-      component: List
-
-    },
-    {
       path: '/list2',
       name: 'list2',
       component: list2
-
     }
-    // , {
-    //   path: '/test',
-    //   name: 'test',
-    //   component: test
-    // }
-
-
-    }
-
   ]
 })
