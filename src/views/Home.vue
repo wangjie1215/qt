@@ -52,48 +52,24 @@
           </div>
         </div>
 
-        <el-tab-pane label="首页" name="first">
-          <div class="boxleft" :data="jokeList">
+        <el-tab-pane  label="首页" name="first">
+          <div class="boxleft">
+            <el-table :data="jokeList" >
             <div class="left-container">
               <div class="left-img">
-                <a><img src="../assets/img/111aaa.jpg"></a>
+                <a><img :src="joke.coverImg"></a>
               </div>
               <span class="lxw-title">
-                美舰穿航台湾海峡 解放军东部战区回应中这句新提法耐人寻味
+                {{joke.title}}
               </span>
               <span class="lxw-pinglun">
                 <div align="left">
-                  <h4>阿拉丁~小明</h4>
+                  <!-- <h4>{{}}</h4> -->
                 </div>
-                美国海军已经决定，重建第一舰队，负责印度洋和西太平洋的战略威慑。这个举动明显是直冲中国而来。很多学者认为新加坡是舰队司令部驻地首选，但新加坡官方和民间都不热情。反而是澳大利亚热情很高，在达尔文方案出现之间，已经出现了帕斯方案。
+                {{joke.content}}
               </span>
             </div>
-            <div class="left-xw">
-              <div class="left-img">
-                <a><img src="../assets/img/tt1.jpeg"></a>
-              </div>
-              <div class="lxw-title">
-                <a href="#/Newshiwei">世卫:北美一些国家从未走出第一波疫情</a>
-              </div>
-              <span class="lxw-pinglun">
-                <div align="left">
-                  <h4>阿拉丁~小明</h4>
-                </div>
-                央视网消息：当地时间18日，世界卫生组织举行新冠肺炎例行发布会，世卫组织卫生紧急项目负责人迈克尔·瑞安表示，过去几天，一些美洲国家上报的病例数量有所增加，令人担忧，美洲区域....
-              </span>
-            </div>
-            <div class="left-xw">
-              <div class="left-img">
-                <a><img src="../assets/img/2cc.jpeg"></a>
-              </div>
-              <span class="lxw-title">京东致歉的启示：互联网巨头不能老想着从穷人的口袋里套钱</span>
-              <span class="lxw-pinglun">
-                <div align="left">
-                  <h4>阿拉丁~小明</h4>
-                </div>
-                评论：京东致歉的启示：互联网巨头不能老想着从穷人的口袋里套钱，京东致歉的启示：互联网巨头不能老想着从穷人的口袋里套钱，京东致歉的启示：互联网巨头不能老想着从穷人的口袋里套钱
-              </span>
-            </div>
+            </el-table>
           </div>
 
           <div class="boxright">
@@ -145,8 +121,10 @@
     },
     data() {
       return {
+        content:'',
+        coverImg:'',
         title:'',
-        jokeList:'',
+        jokeList:[],
         activeName: 'first',
         total: '',
         page: '1',
@@ -195,11 +173,15 @@
       shousuo:function(){
         let data={
           title:this.title,
+          content:this.content,
+          coverImg:this.coverImg,
           rows:this.rows,
           page:this.page
         }
+        debugger
         var url = this.axios.urls.SYS_LISTLIKEJOKE;
         this.axios.post(url,data).then(resp=>{
+          debugger
           console.log(resp);
           this.jokeList=resp.data.result;
           this.total=resp.data.total;
