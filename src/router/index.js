@@ -9,7 +9,6 @@ import Newshiwei from '@/views/Newshiwei.vue'
 import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
-import List from '@/views/List.vue'
 import list2 from '@/views/list2.vue'
 
 
@@ -39,7 +38,6 @@ export default new Router({
       component: Register
     },
     {
-
       path: '/AddJoke',
       name: 'AddJoke',
       component: AddJoke
@@ -48,13 +46,11 @@ export default new Router({
       path: '/Newshiwei',
       name: 'Newshiwei',
       component: Newshiwei
-
     },
     {
       path: '/AppMain',
       name: 'AppMain',
       component: AppMain
-
     },
     {
       path: '/Personal',
@@ -65,27 +61,15 @@ export default new Router({
       path: '/Admin',
       name: 'Admin',
       component: Admin
-
-    },
-    {
-      path: '/List',
-      name: 'List',
-      component: List
-
     },
     {
       path: '/list2',
       name: 'list2',
       component: list2
     }
-    // , {
-    //   path: '/test',
-    //   name: 'test',
-    //   component: test
+
+
     // }
-
-
-    }
 
   ]
 })
