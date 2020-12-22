@@ -14,11 +14,13 @@
           <el-button type="success" @click="gerenzhongxin">个人中心</el-button>
           <el-dropdown>
             <el-button type="info">
-              用户<i class="el-icon-arrow-down el-icon--right"></i>
+              用户:<template slot="title">{{this.usrName}}</template>
+              <i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>用户名：zs</el-dropdown-item>
               <el-dropdown-item>身份：普通用户</el-dropdown-item>
+              <el-dropdown-item><el-link type="danger" href="#/Login">退出</el-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -52,25 +54,22 @@
           </div>
         </div>
 
-        <el-tab-pane  label="首页" name="first">
-          <div class="boxleft">
-            <el-table :data="jokeList" >
-            <div class="left-container">
-              <div class="left-img">
-                <a><img :src="joke.coverImg"></a>
-              </div>
-              <span class="lxw-title">
-                {{joke.title}}
-              </span>
-              <span class="lxw-pinglun">
-                <div align="left">
-                  <!-- <h4>{{}}</h4> -->
-                </div>
-                {{joke.content}}
-              </span>
-            </div>
-            </el-table>
-          </div>
+        <el-tab-pane label="首页" name="first">
+                  <div class="boxleft">
+                      <div class="left-container" v-for="joke in jokeList">
+                        <a><img :src="joke.coverImg" /></a>
+                        <span class="lxw-title">
+                          {{joke.title}}
+                        </span>
+                        <span class="lxw-pinglun">
+                          <div align="left">
+                            <!-- <h4>{{name}}</h4> -->
+                          </div>
+                          {{joke.content}}
+                        </span>
+                      </div>
+                  </div>
+               </el-tab-pane>
 
           <div class="boxright">
             <div class="gongaolan">
@@ -123,6 +122,7 @@
       return {
         content:'',
         coverImg:'',
+        src:'',
         title:'',
         jokeList:[],
         activeName: 'first',
@@ -173,8 +173,6 @@
       shousuo:function(){
         let data={
           title:this.title,
-          content:this.content,
-          coverImg:this.coverImg,
           rows:this.rows,
           page:this.page
         }
