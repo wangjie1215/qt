@@ -17,6 +17,7 @@ export default {
   'SYS_LISTAll':'/listAllComment',//comment查询全部AddComment
   'SYS_AddComment':'/AddComment',
   'SYS_DeleteComment':'/DeleteComment',
+  'SYS_TREENODE':'/listAllTreeNode',
 
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
     return this.SERVER + this[k];

@@ -10,6 +10,8 @@ import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
 import list2 from '@/views/list2.vue'
+import test from '@/views/test.vue'
+
 
 
 
@@ -72,13 +74,11 @@ export default new Router({
       name: 'list2',
       component: list2
     }
-    // , {
-    //   path: '/test',
-    //   name: 'test',
-    //   component: test
-    // }
-
-
+    , {
+      path: '/test',
+      name: 'test',
+      component: test
+    }
 
   ]
 })

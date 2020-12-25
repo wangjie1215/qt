@@ -31,6 +31,9 @@
     </div>
 
     <div>
+      <div align="right">
+        <el-button type="primary" plain @click="shouye">返回首页</el-button>
+      </div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="我的" name="first">
           <div class="left-xw">
@@ -125,6 +128,9 @@
     methods: {
       onSubmit() {
         console.log('submit!');
+      },
+      shouye:function(){
+        this.$router.push("/Home");
       }
     }
   };
@@ -133,7 +139,7 @@
 <style>
   .boxL {
     width: 400px;
-    height: 800px;
+    height: 500px;
     padding-top: 40px;
     padding-left: 560px;
   }

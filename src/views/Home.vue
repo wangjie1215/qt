@@ -8,7 +8,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <div align="right">
           <el-input v-model="title" placeholder="搜索站内资讯或用户" style="width: 240px;"></el-input>
-          <el-button type="primary" @click="shousuo">搜索</el-button>
+          <el-button type="primary" @click="search">搜索</el-button>
           <el-button type="warning" @click="denglu">登录</el-button>
           <el-button type="danger" @click="zhuce">注册</el-button>
           <el-button type="success" @click="gerenzhongxin">个人中心</el-button>
@@ -20,7 +20,13 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>用户名：zs</el-dropdown-item>
               <el-dropdown-item>身份：普通用户</el-dropdown-item>
+
               <el-dropdown-item><el-link type="danger" href="#/Login">退出</el-link></el-dropdown-item>
+
+              <el-dropdown-item>
+                <el-link type="danger" href="#/Login">退出</el-link>
+              </el-dropdown-item>
+
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -55,6 +61,7 @@
         </div>
 
         <el-tab-pane label="首页" name="first">
+
                   <div class="boxleft">
                       <div class="left-container" v-for="joke in jokeList">
                         <a><img :src="joke.coverImg" /></a>
@@ -71,21 +78,38 @@
                   </div>
                </el-tab-pane>
 
-          <div class="boxright">
-            <div class="gongaolan">
-              <div class="gongaolan_title">
-                ~~公告栏~~
+          <div class="boxleft">
+            <div class="left-container" v-for="joke in jokeList">
+              <div class="left-img">
+                <a><img :src="joke.coverImg" /></a>
               </div>
-              <div class="gongaolan_body">
-                太阳能光伏，太阳能光伏，太阳能光伏，太阳能光伏，太阳能光伏
-              </div>
-            </div>
-            <div align="right">
-              <el-input type="textarea" placeholder="刷个存在感叭......"></el-input>
-              <el-button type="primary" @click="fasong">发送</el-button>
+              <span class="lxw-title">
+                {{joke.title}}
+              </span>
+              <span class="lxw-pinglun">
+                <div align="left">
+                  <!-- <h4>{{name}}</h4> -->
+                </div>
+                {{joke.content}}
+              </span>
             </div>
           </div>
+        </el-tab-pane>
 
+        <div class="boxright">
+          <div class="gongaolan">
+            <div class="gongaolan_title">
+              ~~公告栏~~
+            </div>
+            <div class="gongaolan_body">
+              太阳能光伏，太阳能光伏，太阳能光伏，太阳能光伏，太阳能光伏
+            </div>
+          </div>
+          <div align="right">
+            <el-input type="textarea" placeholder="刷个存在感叭......"></el-input>
+            <el-button type="primary" @click="fasong">发送</el-button>
+          </div>
+        </div>
         </el-tab-pane>
         <el-tab-pane label="科技" name="second">科技</el-tab-pane>
         <el-tab-pane label="军事" name="third">军事</el-tab-pane>
@@ -97,9 +121,9 @@
 
     </div>
 
-    <div>
+    <div style="padding-top: 50px;padding-left: 30px;">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
-        :page-sizes="[5,10,15,20]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        :page-sizes="[5, 10, 20, 40]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -120,17 +144,23 @@
     },
     data() {
       return {
+
         content:'',
         coverImg:'',
         src:'',
         title:'',
         jokeList:[],
+
         activeName: 'first',
+        content: '',
+        coverImg: '',
+        src: '',
+        title: '',
+        jokeList: [],
         total: '',
         page: '1',
         rows: '5',
-        sliders: [
-          {
+        sliders: [{
             img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1608459251646&di=25c27301df8d1d7c4cc4ffa1bbb89bb0&imgtype=0&src=http%3A%2F%2Fp2.itc.cn%2Fimages01%2F20200608%2F7f3abea0b8634752a487ecc7ac0c01bb.jpeg'
           },
           {
@@ -161,29 +191,28 @@
       this.init()
     },
     methods: {
-      //修改页大小
+      /* 修改行大小 */
       handleSizeChange: function(size) {
         this.rows = size;
-        this.shousuo();
+        this.search();
       },
+      /* 修改页大小*/
       handleCurrentChange: function(page) {
         this.page = page;
-        this.shousuo();
+        this.search();
       },
-      shousuo:function(){
-        let data={
-          title:this.title,
-          rows:this.rows,
-          page:this.page
+      search: function() {
+        let data = {
+          title: this.title,
+          rows: this.rows,
+          page: this.page
         }
-        debugger
         var url = this.axios.urls.SYS_LISTLIKEJOKE;
-        this.axios.post(url,data).then(resp=>{
-          debugger
+        this.axios.post(url, data).then(resp => {
           console.log(resp);
-          this.jokeList=resp.data.result;
-          this.total=resp.data.total;
-        }).catch(resp=>{
+          this.jokeList = resp.data.result;
+          this.total = resp.data.total;
+        }).catch(resp => {
           console.log(resp);
         })
       },
@@ -193,7 +222,7 @@
       zhuce: function() {
         this.$router.push("/Register");
       },
-      gerenzhongxin:function(){
+      gerenzhongxin: function() {
         this.$router.push("/personal");
       },
       init() {
@@ -254,8 +283,8 @@
         this.timer = null
       }
     },
-    created:function(){
-      this.shousuo();
+    created: function() {
+      this.search();
     }
   }
 </script>
@@ -264,7 +293,6 @@
 <style scoped>
   .boxleft {
     width: 1200px;
-    height: 117px;
     border-top: 1px dashed #eee;
     cursor: pointer;
     margin-top: 0px;
@@ -275,26 +303,20 @@
 
   .left-container {
     width: 1500px;
+    height: 200px;
     float: left;
-    min-height: 100px;
     padding-top: 20px;
   }
 
-  .left-xw {
-    width: 1500px;
-    float: left;
-    min-height: 100px;
-    padding-top: 100px;
-  }
-
   .left-img {
-    width: 400px;
+    width: 350px;
     height: 100px;
     float: left;
   }
 
   .lxw-title {
     width: 530px;
+    padding-top:20px;
     color: black;
     padding-top: 5px;
     font-size: 19px;
@@ -309,6 +331,7 @@
     font-size: 16px;
     font-weight: 700;
     float: left;
+    padding-top:20px;
   }
 
   .boxright {
@@ -350,69 +373,82 @@
     float: right;
   }
 
-  *{
-          box-sizing: border-box;
-          margin:0;
-          padding:0;
-        }
-        ol,ul{
-          list-style: none;
-        }
-        #slider{
-          text-align: center;
-          padding-top: 20px;
-        }
-        .window{
-          position:relative;
-          width:1200px;
-          height:400px;
-          margin:0 auto;
-          overflow:hidden;
-        }
-        .container{
-          display:flex;
-          position:absolute;
-        }
-        .left, .right{
-          position:absolute;
-          top:50%;
-          transform:translateY(-50%);
-          width:50px;
-          height:50px;
-          background-color:rgba(0,0,0,.3);
-          border-radius:50%;
-          cursor:pointer;
-        }
-        .left{
-          left:3%;
-          padding-left:12px;
-          padding-top:10px;
-        }
-        .right{
-          right:3%;
-          padding-right:12px;
-          padding-top:10px;
-        }
-        img{
-          user-select: none;
-        }
-        .dots{
-            position:absolute;
-            bottom:10px;
-            left:50%;
-            transform:translateX(-50%);
-          }
-        .dots li{
-          display:inline-block;
-          width:15px;
-          height:15px;
-          margin:0 3px;
-          border:1px solid white;
-          border-radius:50%;
-          background-color:#333;
-          cursor:pointer;
-        }
-        .dots .dotted{
-          background-color:orange;
-        }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  #slider {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .window {
+    position: relative;
+    width: 1200px;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .container {
+    display: flex;
+    position: absolute;
+  }
+
+  .left,
+  .right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .left {
+    left: 3%;
+    padding-left: 12px;
+    padding-top: 10px;
+  }
+
+  .right {
+    right: 3%;
+    padding-right: 12px;
+    padding-top: 10px;
+  }
+
+  img {
+    user-select: none;
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .dots li {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 0 3px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: #333;
+    cursor: pointer;
+  }
+
+  .dots .dotted {
+    background-color: orange;
+  }
 </style>

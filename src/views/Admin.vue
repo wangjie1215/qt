@@ -13,7 +13,6 @@
         </el-form-item>
         <div align="center">
           <el-button type="primary" @click="onSubmit" style="width: 30%;">登录</el-button>
-          <el-button type="primary" @click="register" style="width: 30%;">注册</el-button>
         </div>
       </el-form>
     </div>
@@ -47,10 +46,6 @@
       }
     },
     methods: {
-      //注册按钮
-      register: function() {
-        this.$router.push("Register");
-      },
       //登录按钮
       onSubmit: function() {
         console.log('ok');
