@@ -22,9 +22,11 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>用户名：zs</el-dropdown-item>
               <el-dropdown-item>身份：普通用户</el-dropdown-item>
-              <el-dropdown-item>
+
+              <el-dropdown-item><el-link type="danger" href="#/Login">退出</el-link></el-dropdown-item>
+              <!-- <el-dropdown-item>
                 <el-link type="danger" href="#/Login">退出</el-link>
-              </el-dropdown-item>
+              </el-dropdown-item> -->
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -58,8 +60,7 @@
             </ul>
           </div>
         </div>
-
-        <el-tab-pane label="经典" name="first">
+        
           <div class="boxleft">
             <div class="left-container" v-for="joke in jokeList">
               <div class="left-img">
@@ -133,6 +134,11 @@
         areaform:{
           desc:''
         },
+        content:'',
+        coverImg:'',
+        src:'',
+        title:'',
+        jokeList:[],
         activeName: 'first',
         content: '',
         coverImg: '',

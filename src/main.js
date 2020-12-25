@@ -29,5 +29,10 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  data: { //注意：如果data写成了function，则必须用return返回
+  
+      //自定义的事件总线对象，用于父子组件的通信
+      Bus: new Vue()
+    }
 })

@@ -10,7 +10,11 @@ import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
 import list2 from '@/views/list2.vue'
+
 import XiangQing from '@/views/XiangQing.vue'
+
+import test from '@/views/test.vue'
+
 
 
 
@@ -78,5 +82,11 @@ export default new Router({
       name: 'XiangQing',
       component: XiangQing
     }
+    , {
+      path: '/test',
+      name: 'test',
+      component: test
+    }
+
   ]
 })
