@@ -12,7 +12,7 @@ export default {
   'SYS_ADDJOKE':'/AddJoke',//新增joke
   'SYS_LISTBYIDJOKE':'/ListByIdJoke',//查单个joke
 
-  'SYS_LISTLIKEJOKE':'/ListLikeJoke',//查所有joke
+  'SYS_LISTLIKEJOKE':'/listJokePager',//查所有模糊查joke
 
   'SYS_LISTAll':'/listAllComment',//comment查询全部AddComment
   'SYS_AddComment':'/AddComment',

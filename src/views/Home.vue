@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 标题 -->
     <div>
       <a><img src="../assets/img/logo.png" /></a>
     </div>
@@ -9,12 +10,13 @@
         <div align="right">
           <el-input v-model="title" placeholder="搜索站内资讯或用户" style="width: 240px;"></el-input>
           <el-button type="primary" @click="search">搜索</el-button>
+          <el-button type="primary" @click="addjoke">新增段子</el-button>
           <el-button type="warning" @click="denglu">登录</el-button>
           <el-button type="danger" @click="zhuce">注册</el-button>
           <el-button type="success" @click="gerenzhongxin">个人中心</el-button>
           <el-dropdown>
             <el-button type="info">
-              用户:<template slot="title">{{this.usrName}}</template>
+              用户:<template slot="title">{{this.name}}</template>
               <i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -27,6 +29,7 @@
           </el-dropdown>
         </div>
 
+        <!-- 轮播图 -->
         <div id="slider">
           <div class="window" @mouseover="stop" @mouseleave="play">
             <ul class="container" :style="containerStyle">
@@ -41,11 +44,11 @@
               </li>
             </ul>
             <ul class="direction">
-              <li class="left" @click="move(1200, 1, speed)">
+              <li class="left" @click="move(600, 1, speed)">
                 <svg class="icon" width="30px" height="30.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#ffffff" d="M481.233 904c8.189 0 16.379-3.124 22.628-9.372 12.496-12.497 12.496-32.759 0-45.256L166.488 512l337.373-337.373c12.496-12.497 12.496-32.758 0-45.255-12.498-12.497-32.758-12.497-45.256 0l-360 360c-12.496 12.497-12.496 32.758 0 45.255l360 360c6.249 6.249 14.439 9.373 22.628 9.373z" /></svg>
               </li>
-              <li class="right" @click="move(1200, -1, speed)">
+              <li class="right" @click="move(600, -1, speed)">
                 <svg class="icon" width="30px" height="30.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#ffffff" d="M557.179 904c-8.189 0-16.379-3.124-22.628-9.372-12.496-12.497-12.496-32.759 0-45.256L871.924 512 534.551 174.627c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0l360 360c12.496 12.497 12.496 32.758 0 45.255l-360 360c-6.249 6.249-14.439 9.373-22.628 9.373z" /></svg>
               </li>
@@ -56,14 +59,16 @@
           </div>
         </div>
 
-        <el-tab-pane label="首页" name="first">
+        <el-tab-pane label="经典" name="first">
           <div class="boxleft">
             <div class="left-container" v-for="joke in jokeList">
               <div class="left-img">
                 <a><img :src="joke.coverImg" /></a>
               </div>
               <span class="lxw-title">
-                {{joke.title}}
+                <el-button type="text">
+                  <a href="/#/XiangQing"><h2>{{joke.title}}</h2></a>
+                </el-button>
               </span>
               <span class="lxw-pinglun">
                 <div align="left">
@@ -85,21 +90,23 @@
             </div>
           </div>
           <div align="right">
-            <el-input type="textarea" placeholder="刷个存在感叭......"></el-input>
+            <el-form ref="areaform" :model="areaform">
+              <el-form-item>
+                 <el-input type="textarea" placeholder="刷个存在感叭......" v-model="areaform.desc"></el-input>
+              </el-form-item>
+            </el-form>
             <el-button type="primary" @click="fasong">发送</el-button>
           </div>
         </div>
         </el-tab-pane>
-        <el-tab-pane label="科技" name="second">科技</el-tab-pane>
-        <el-tab-pane label="军事" name="third">军事</el-tab-pane>
-        <el-tab-pane label="社会" name="fourth">社会</el-tab-pane>
-        <el-tab-pane label="财经" name="fifth">财经</el-tab-pane>
-        <el-tab-pane label="国际" name="sixth">国际</el-tab-pane>
-        <el-tab-pane label="国内" name="seventh">国内</el-tab-pane>
+        <el-tab-pane label="荤笑话" name="second">荤笑话</el-tab-pane>
+        <el-tab-pane label="精分" name="third">精分</el-tab-pane>
+        <el-tab-pane label="脑残" name="fourth">脑残</el-tab-pane>
+        <el-tab-pane label="冷笑话" name="fifth">冷笑话</el-tab-pane>
       </el-tabs>
-
     </div>
 
+    <!-- 分页  -->
     <div style="padding-top: 50px;padding-left: 30px;">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
         :page-sizes="[5, 10, 20, 40]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -123,6 +130,9 @@
     },
     data() {
       return {
+        areaform:{
+          desc:''
+        },
         activeName: 'first',
         content: '',
         coverImg: '',
@@ -141,10 +151,16 @@
           {
             img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1062441701,4278788533&fm=26&gp=0.jpg'
           },
+          {
+            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2148398168,1390081690&fm=26&gp=0.jpg'
+          },
+          {
+            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3833961864,2672196146&fm=11&gp=0.jpg'
+          }
         ],
-        imgWidth: 1200,
+        imgWidth: 600,
         currentIndex: 1,
-        distance: -1200,
+        distance: -600,
         transitionEnd: true,
         speed: this.initialSpeed
       }
@@ -173,6 +189,7 @@
         this.page = page;
         this.search();
       },
+      /* 查所有模糊查joke */
       search: function() {
         let data = {
           title: this.title,
@@ -188,6 +205,11 @@
           console.log(resp);
         })
       },
+      /* 查单个段子 */
+
+      addjoke: function() {
+        this.$router.push("/AddJoke");
+      },
       denglu: function() {
         this.$router.push("/Login");
       },
@@ -197,6 +219,7 @@
       gerenzhongxin: function() {
         this.$router.push("/personal");
       },
+      /* 轮播图 */
       init() {
         this.play()
         window.onblur = function() {
@@ -210,9 +233,9 @@
         console.log(speed)
         if (!this.transitionEnd) return
         this.transitionEnd = false
-        direction === -1 ? this.currentIndex += offset / 1200 : this.currentIndex -= offset / 1200
-        if (this.currentIndex > 3) this.currentIndex = 1
-        if (this.currentIndex < 1) this.currentIndex = 3
+        direction === -1 ? this.currentIndex += offset / 600 : this.currentIndex -= offset / 600
+        if (this.currentIndex > 5) this.currentIndex = 1
+        if (this.currentIndex < 1) this.currentIndex = 5
 
         const destination = this.distance + offset * direction
         this.animate(destination, direction, speed)
@@ -229,14 +252,14 @@
             this.transitionEnd = true
             window.clearInterval(this.temp)
             this.distance = des
-            if (des < -3000) this.distance = -1200
-            if (des > -1200) this.distance = -3000
+            if (des < -3000) this.distance = -600
+            if (des > -600) this.distance = -3000
           }
         }, 20)
       },
       jump(index) {
         const direction = index - this.currentIndex >= 0 ? -1 : 1;
-        const offset = Math.abs(index - this.currentIndex) * 1200;
+        const offset = Math.abs(index - this.currentIndex) * 600;
         const jumpSpeed = Math.abs(index - this.currentIndex) === 0 ? this.speed : Math.abs(index - this.currentIndex) *
           this.speed;
         this.move(offset, direction, jumpSpeed)
@@ -247,7 +270,7 @@
           this.timer = null
         }
         this.timer = window.setInterval(() => {
-          this.move(1200, -1, this.speed)
+          this.move(600, -1, this.speed)
         }, this.interval)
       },
       stop() {
@@ -287,8 +310,8 @@
   }
 
   .lxw-title {
-    width: 530px;
-    padding-top:20px;
+    width: 600px;
+    padding-top: 20px;
     color: black;
     padding-top: 5px;
     font-size: 19px;
@@ -303,7 +326,7 @@
     font-size: 16px;
     font-weight: 700;
     float: left;
-    padding-top:20px;
+    padding-top: 20px;
   }
 
   .boxright {
@@ -358,15 +381,15 @@
 
   #slider {
     text-align: center;
-    padding-top: 20px;
   }
 
   .window {
     position: relative;
-    width: 1200px;
+    width: 600px;
     height: 400px;
     margin: 0 auto;
     overflow: hidden;
+    padding-top: 30px;
   }
 
   .container {
