@@ -10,6 +10,9 @@ import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
 import list2 from '@/views/list2.vue'
+import Comment from '@/views/Comment.vue'
+import JokeList from '@/views/JokeList.vue'
+import UserList from '@/views/UserList.vue'
 
 
 
@@ -56,6 +59,7 @@ export default new Router({
       path: '/Personal',
       name: 'Personal',
       component: Personal
+
     },
     {
       path: '/Admin',
@@ -66,8 +70,22 @@ export default new Router({
       path: '/list2',
       name: 'list2',
       component: list2
-    }
-
+    },
+    {
+      path: '/Comment',
+      name: 'Comment',
+      component: Comment
+    },
+    {
+      path: '/JokeList',
+      name: 'JokeList',
+      component: JokeList
+    },
+    {
+      path: '/UserList',
+      name: 'UserList',
+      component: UserList
+    },
 
     // }
 

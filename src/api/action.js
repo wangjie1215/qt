@@ -11,9 +11,14 @@ export default {
   'SYS_USER_PHONEYZ':'/phoneYz',//短信验证
   'SYS_ADDJOKE':'/AddJoke',//新增joke
   'SYS_LISTBYIDJOKE':'/ListByIdJoke',//查单个joke
+  'SYS_LISTLIKEJOKE':'/ListLikeJoke',//查所有joke
   'SYS_LISTAll':'/listAllComment',//comment查询全部AddComment
   'SYS_AddComment':'/AddComment',//增加comment
   'SYS_DeleteComment':'/DeleteComment',//删除comment
+  'SYS_UpdateComment':'/UpdateComment',//修改comment
+  'SYS_LikeJokeList':'/listAllJoke',
+  'SYS_UserList':'/listAllUser',//user查全部
+  'SYS_AdminList':'/listAllAdmin',
   'getFullPath': k => { //获得请求的完整地址，用于mockjs测试时使用
     return this.SERVER + this[k];
   }
