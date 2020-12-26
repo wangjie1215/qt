@@ -6,8 +6,9 @@
     </div>
 
     <div>
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <div align="right">
+      <el-tabs v-model="activeName" @tab-click="handleClick" style="padding-left: 20px;">
+        <el-tab-pane label="经典" name="first">
+        <div style="padding-left: 900px;">
           <el-input v-model="title" placeholder="搜索站内资讯或用户" style="width: 240px;"></el-input>
           <el-button type="primary" @click="search">搜索</el-button>
           <el-button type="primary" @click="addjoke">新增段子</el-button>
@@ -22,16 +23,14 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>用户名：zs</el-dropdown-item>
               <el-dropdown-item>身份：普通用户</el-dropdown-item>
-
-              <el-dropdown-item><el-link type="danger" href="#/Login">退出</el-link></el-dropdown-item>
-              <!-- <el-dropdown-item>
+              <el-dropdown-item>
                 <el-link type="danger" href="#/Login">退出</el-link>
-              </el-dropdown-item> -->
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
 
-        <!-- 轮播图 -->
+        <!-- 轮播图start -->
         <div id="slider">
           <div class="window" @mouseover="stop" @mouseleave="play">
             <ul class="container" :style="containerStyle">
@@ -60,27 +59,32 @@
             </ul>
           </div>
         </div>
-        
-          <div class="boxleft">
-            <div class="left-container" v-for="joke in jokeList">
-              <div class="left-img">
-                <a><img :src="joke.coverImg" /></a>
-              </div>
-              <span class="lxw-title">
-                <el-button type="text">
-                  <a href="/#/XiangQing"><h2>{{joke.title}}</h2></a>
-                </el-button>
-              </span>
-              <span class="lxw-pinglun">
-                <div align="left">
-                  <!-- <h4>{{name}}</h4> -->
-                </div>
-                {{joke.content}}
-              </span>
-            </div>
-          </div>
-        </el-tab-pane>
+        <!-- 轮播图end -->
 
+        <!-- 段子start -->
+        <div class="boxleft">
+          <div class="left-container" v-for="joke in jokeList">
+            <div class="left-img">
+              <a><img :src="joke.coverImg" /></a>
+            </div>
+            <span class="lxw-title">
+              <el-button type="text" @click="handleLoad(scope.row)">
+                <a href="/#/XiangQing">
+                  <h2>{{joke.title}}</h2>
+                </a>
+              </el-button>
+            </span>
+            <span class="lxw-pinglun">
+              <div align="left">
+                <!-- <h4>{{name}}</h4> -->
+              </div>
+              {{joke.content}}
+            </span>
+          </div>
+        </div>
+        <!-- 段子end -->
+
+        <!-- 公告栏start -->
         <div class="boxright">
           <div class="gongaolan">
             <div class="gongaolan_title">
@@ -93,12 +97,13 @@
           <div align="right">
             <el-form ref="areaform" :model="areaform">
               <el-form-item>
-                 <el-input type="textarea" placeholder="刷个存在感叭......" v-model="areaform.desc"></el-input>
+                <el-input type="textarea" placeholder="刷个存在感叭......" v-model="areaform.desc"></el-input>
               </el-form-item>
             </el-form>
             <el-button type="primary" @click="fasong">发送</el-button>
           </div>
         </div>
+        <!-- 公告栏end -->
         </el-tab-pane>
         <el-tab-pane label="荤笑话" name="second">荤笑话</el-tab-pane>
         <el-tab-pane label="精分" name="third">精分</el-tab-pane>
@@ -108,7 +113,7 @@
     </div>
 
     <!-- 分页  -->
-    <div style="padding-top: 50px;padding-left: 30px;">
+    <div style="padding-top: 50px;padding-left: 30px;padding-bottom: 30px;">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage4"
         :page-sizes="[5, 10, 20, 40]" :page-size="2" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
@@ -119,6 +124,7 @@
 
 <script>
   export default {
+    /* 轮播图start */
     props: {
       initialSpeed: {
         type: Number,
@@ -129,25 +135,22 @@
         default: 3
       }
     },
+    /* 轮播图end */
     data() {
       return {
-        areaform:{
-          desc:''
+        areaform: {
+          desc: ''
         },
-        content:'',
-        coverImg:'',
-        src:'',
-        title:'',
-        jokeList:[],
-        activeName: 'first',
         content: '',
         coverImg: '',
         src: '',
         title: '',
         jokeList: [],
+        activeName: 'first',
         total: '',
         page: '1',
         rows: '5',
+        /* 轮播图start */
         sliders: [{
             img: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1608459251646&di=25c27301df8d1d7c4cc4ffa1bbb89bb0&imgtype=0&src=http%3A%2F%2Fp2.itc.cn%2Fimages01%2F20200608%2F7f3abea0b8634752a487ecc7ac0c01bb.jpeg'
           },
@@ -184,7 +187,18 @@
     mounted() {
       this.init()
     },
+    /* 轮播图end */
     methods: {
+      handleLoad:function(row){
+        this.$router.push({
+          path:'/#/XiangQing',
+          query:{
+            content:row.content,
+            contenthtml:row.contenthtml
+          }
+        });
+      },
+
       /* 修改行大小 */
       handleSizeChange: function(size) {
         this.rows = size;
@@ -211,8 +225,6 @@
           console.log(resp);
         })
       },
-      /* 查单个段子 */
-
       addjoke: function() {
         this.$router.push("/AddJoke");
       },
@@ -225,7 +237,7 @@
       gerenzhongxin: function() {
         this.$router.push("/personal");
       },
-      /* 轮播图 */
+      /* 轮播图start */
       init() {
         this.play()
         window.onblur = function() {
@@ -283,6 +295,7 @@
         window.clearInterval(this.timer)
         this.timer = null
       }
+      /* 轮播图end */
     },
     created: function() {
       this.search();
@@ -327,7 +340,7 @@
   }
 
   .lxw-pinglun {
-    width: 700px;
+    width: 800px;
     color: #2C3E50;
     font-size: 16px;
     font-weight: 700;

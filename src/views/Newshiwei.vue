@@ -6,7 +6,7 @@
 
     <div>
       <div style="padding-left: 800px;">
-        <el-button type="primary" plain @click="shousuo">返回首页</el-button>
+        <el-button type="primary" plain @click="shouye">返回首页</el-button>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="经典" name="first">
@@ -65,7 +65,7 @@
       }
     },
     methods: {
-      shousuo: function() {
+      shouye: function() {
         this.$router.push("/Home");
       }
     }

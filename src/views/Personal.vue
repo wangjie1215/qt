@@ -3,17 +3,20 @@
     <h1>个人中心</h1>
     <div class="boxL">
       <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
-        <el-form-item label="编号">
-          <el-input v-model="sizeForm.user_id" readonly="true"></el-input>
+        <el-form-item label="用户编号">
+          <el-input v-model="sizeForm.userid" readonly="true"></el-input>
         </el-form-item>
-        <el-form-item label="电话">
-          <el-input v-model="sizeForm.user_phone" readonly="true"></el-input>
+        <el-form-item label="用户名">
+          <el-input v-model="sizeForm.username" readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号码">
+          <el-input v-model="sizeForm.useridcard" readonly="true"></el-input>
         </el-form-item>
       </el-form>
     </div>
 
     <div>
-      <div align="right">
+      <div style="width: 800px;padding-left: 800px;">
         <el-button type="primary" plain @click="shouye">返回首页</el-button>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -51,13 +54,16 @@
         <el-tab-pane label="点赞" name="third">点赞</el-tab-pane>
         <el-tab-pane label="编辑个人资料" name="fourth">
           <h3>编辑个人资料</h3>
-          <div style="width: 580px;height: 400px;padding-left: 500px;padding-top: 40px;">
+          <div class="boxL">
             <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
-              <el-form-item label="编号">
-                <el-input v-model="sizeForm.user_id" readonly="true"></el-input>
+              <el-form-item label="用户编号">
+                <el-input v-model="sizeForm.userid" readonly="true"></el-input>
               </el-form-item>
-              <el-form-item label="电话">
-                <el-input v-model="sizeForm.user_phone"></el-input>
+              <el-form-item label="用户名">
+                <el-input v-model="sizeForm.username" readonly="true"></el-input>
+              </el-form-item>
+              <el-form-item label="身份证号码">
+                <el-input v-model="sizeForm.useridcard" readonly="true"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit">确定</el-button>
@@ -78,8 +84,9 @@
     data() {
       return {
         sizeForm: {
-          user_id:'',
-          user_phone:''
+          userid: '',
+          username: '',
+          useridcard: ''
         },
         activeName: 'first'
       };
@@ -88,7 +95,7 @@
       onSubmit() {
         console.log('submit!');
       },
-      shouye:function(){
+      shouye: function() {
         this.$router.push("/Home");
       }
     }
@@ -98,7 +105,7 @@
 <style>
   .boxL {
     width: 400px;
-    height: 500px;
+    height: 300px;
     padding-top: 40px;
     padding-left: 560px;
   }
