@@ -5,7 +5,7 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{path:''}" style="font-size: 16px;">首页</el-breadcrumb-item>
         <el-breadcrumb-item style="font-size: 16px;">段子管理</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'Comment'}" style="font-size: 16px;">段子列表</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:''}" style="font-size: 16px;">段子列表</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -16,20 +16,19 @@
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-          <el-button size="small" type="primary" icon="el-icon-plus" @click="handleAdd">添加</el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <!-- 3.数据表格 -->
-    <div style="padding-top:30px;">
+    <div style="padding-top:20px;">
       <el-table :data="tableList" style="width: 100%;" :border="true" max-height="550">
         <el-table-column prop="id" label="id" min-width="25" align="center"> </el-table-column>
-        <el-table-column prop="commentId" label="评论id" min-width="20"></el-table-column>
         <el-table-column prop="jokeId" label="点赞id" min-width="20"></el-table-column>
-        <el-table-column prop="commentUserId" label="评论用户id" min-width="20"></el-table-column>
-        <el-table-column prop="commentDetails" label="评论详细" min-width="20"></el-table-column>
-        <el-table-column prop="commentDate" label="评论时间" min-width="20"></el-table-column>
+        <el-table-column prop="jokeUserId" label="用户id" min-width="20"></el-table-column>
+        <el-table-column prop="title" label="标题" min-width="20"></el-table-column>
+        <el-table-column prop="content" label="内容" min-width="30"></el-table-column>
+        <el-table-column prop="postTime" label="发布时间" min-width="20"></el-table-column>
         <el-table-column label="操作" min-width="30">
           <template slot-scope="scope">
             <el-button @click="comments" type="danger" size="small">评论</el-button>
@@ -46,37 +45,11 @@
       </el-pagination>
     </div>
 
-    <!--增加-->
-    <el-dialog title="增加" :visible.sync="dialogFormVisible" label-width="80px" @close="handleCole">
-      <el-form :model="mergeFrom" :rules="rules" ref="mergeFrom">
-        <el-form-item label="评论id" prop="commentId">
-          <el-input v-model="mergeFrom.commentId"></el-input>
-        </el-form-item>
-        <el-form-item label="点赞Id" prop="jokeId">
-          <el-input v-model="mergeFrom.jokeId"></el-input>
-        </el-form-item>
-        <el-form-item label="评论用户id" prop="commentuserId">
-          <el-input v-model="mergeFrom.commentuserId"></el-input>
-        </el-form-item>
-        <el-form-item label="评论时间" prop="commentDate">
-          <el-date-picker value-format="yyyy-MM-dd hh:mm:ss" v-model="mergeFrom.commentDate" type="datetime"
-            placeholder="选择日期时间" style="width: 50%;right: 100px;">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="评论详细" prop="commentDetails">
-          <el-input v-model="mergeFrom.commentDetails"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="doMerge">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 <script>
   export default { //默认导出
-    name: 'list2',
+    name: 'JokeList',
     data() { //放属性
       return {
         tableList: [],
@@ -86,12 +59,14 @@
         rows: '5',
         dialogFormVisible: false,
         mergeFrom: {
-          id: '',
-          commentId: '',
-          jokeId: '',
-          commentUserId: '',
-          commentDate: '',
-          commentDetails: ''
+          id: '', //id
+          jokeId: '', //jokeid
+          jokeUserId: '', //用户id
+          title: '', //标题
+          content: '', //内容
+          contenthtml: '',
+          coverImg: '', //图片
+          postTime: '' //时间
         },
         rules: {
           title: [{
@@ -139,8 +114,7 @@
                 this.dialogFormVisible = false;
               }
               this.search();
-            }).catch(resp => {
-            });
+            }).catch(resp => {});
           } else {
             alert('请填写标题和内容!');
             return false;
@@ -174,7 +148,7 @@
           rows: this.rows,
           page: this.page
         }
-        var url = this.axios.urls.SYS_LISTAll;
+        var url = this.axios.urls.SYS_LikeJokeList;
         this.axios.post(url, data).then(resp => {
           console.log(resp);
           this.tableList = resp.data.result;
@@ -184,6 +158,10 @@
 
         });
       },
+      /* 上一页 */
+      // goAdvance: function() {
+      //   this.$router.push('/list2');
+      // }
 
       comments: function() {
         this.$router.push("/Comment");

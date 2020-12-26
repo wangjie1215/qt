@@ -25,11 +25,12 @@
     <div style="padding-top:30px;">
       <el-table :data="tableList" style="width: 100%;" :border="true" max-height="550">
         <el-table-column prop="id" label="id" min-width="25" align="center"> </el-table-column>
-        <el-table-column prop="commentId" label="评论id" min-width="20"></el-table-column>
-        <el-table-column prop="jokeId" label="点赞id" min-width="20"></el-table-column>
-        <el-table-column prop="commentUserId" label="评论用户id" min-width="20"></el-table-column>
-        <el-table-column prop="commentDetails" label="评论详细" min-width="20"></el-table-column>
-        <el-table-column prop="commentDate" label="评论时间" min-width="20"></el-table-column>
+        <el-table-column prop="name" label="用户名" min-width="20"></el-table-column>
+        <el-table-column prop="password" label="用户密码" min-width="20"></el-table-column>
+        <el-table-column prop="nickname" label="用户昵称" min-width="20"></el-table-column>
+        <el-table-column prop="adminId" label="用户id" min-width="20"></el-table-column>
+        <el-table-column prop="registTime" label="注册时间" min-width="20"></el-table-column>
+        <el-table-column prop="lastLoginTime" label="最近登录日期" min-width="20"></el-table-column>
         <el-table-column label="操作" min-width="30">
           <template slot-scope="scope">
             <el-button @click="comments" type="danger" size="small">评论</el-button>
@@ -46,37 +47,11 @@
       </el-pagination>
     </div>
 
-    <!--增加-->
-    <el-dialog title="增加" :visible.sync="dialogFormVisible" label-width="80px" @close="handleCole">
-      <el-form :model="mergeFrom" :rules="rules" ref="mergeFrom">
-        <el-form-item label="评论id" prop="commentId">
-          <el-input v-model="mergeFrom.commentId"></el-input>
-        </el-form-item>
-        <el-form-item label="点赞Id" prop="jokeId">
-          <el-input v-model="mergeFrom.jokeId"></el-input>
-        </el-form-item>
-        <el-form-item label="评论用户id" prop="commentuserId">
-          <el-input v-model="mergeFrom.commentuserId"></el-input>
-        </el-form-item>
-        <el-form-item label="评论时间" prop="commentDate">
-          <el-date-picker value-format="yyyy-MM-dd hh:mm:ss" v-model="mergeFrom.commentDate" type="datetime"
-            placeholder="选择日期时间" style="width: 50%;right: 100px;">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="评论详细" prop="commentDetails">
-          <el-input v-model="mergeFrom.commentDetails"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="doMerge">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 <script>
   export default { //默认导出
-    name: 'list2',
+    name: 'UserList',
     data() { //放属性
       return {
         tableList: [],
@@ -87,11 +62,15 @@
         dialogFormVisible: false,
         mergeFrom: {
           id: '',
-          commentId: '',
-          jokeId: '',
-          commentUserId: '',
-          commentDate: '',
-          commentDetails: ''
+          name: '',
+          password: '',
+          nickname: '',
+          adminId: '',
+          adminIcon: '',
+          permisson:'',
+          token:'',
+          registTime:'',
+          lastLoginTime:''
         },
         rules: {
           title: [{
@@ -174,7 +153,7 @@
           rows: this.rows,
           page: this.page
         }
-        var url = this.axios.urls.SYS_LISTAll;
+        var url = this.axios.urls.SYS_UserList;
         this.axios.post(url, data).then(resp => {
           console.log(resp);
           this.tableList = resp.data.result;
@@ -184,6 +163,10 @@
 
         });
       },
+      /* 上一页 */
+      // goAdvance: function() {
+      //   this.$router.push('/list2');
+      // }
 
       comments: function() {
         this.$router.push("/Comment");

@@ -10,6 +10,9 @@ import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
 import list2 from '@/views/list2.vue'
+import Comment from '@/views/Comment.vue'
+import JokeList from '@/views/JokeList.vue'
+import UserList from '@/views/UserList.vue'
 
 import XiangQing from '@/views/XiangQing.vue'
 
@@ -43,7 +46,6 @@ export default new Router({
       component: Register
     },
     {
-
       path: '/AddJoke',
       name: 'AddJoke',
       component: AddJoke
@@ -52,13 +54,11 @@ export default new Router({
       path: '/Newshiwei',
       name: 'Newshiwei',
       component: Newshiwei
-
     },
     {
       path: '/AppMain',
       name: 'AppMain',
       component: AppMain
-
     },
     {
       path: '/Personal',
@@ -70,7 +70,6 @@ export default new Router({
       path: '/Admin',
       name: 'Admin',
       component: Admin
-
     },
     {
       path: '/list2',
@@ -78,6 +77,24 @@ export default new Router({
       component: list2
     },
     {
+<<<<<<< HEAD
+      path: '/Comment',
+      name: 'Comment',
+      component: Comment
+    },
+    {
+      path: '/JokeList',
+      name: 'JokeList',
+      component: JokeList
+    },
+    {
+      path: '/UserList',
+      name: 'UserList',
+      component: UserList
+    },
+
+    // }
+=======
       path: '/XiangQing',
       name: 'XiangQing',
       component: XiangQing
@@ -87,6 +104,7 @@ export default new Router({
       name: 'test',
       component: test
     }
+>>>>>>> 295b6598ce0dbd6dbf1711aee800c695e9a83258
 
   ]
 })
