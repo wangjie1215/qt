@@ -9,19 +9,12 @@ import Newshiwei from '@/views/Newshiwei.vue'
 import AppMain from '@/views/AppMain.vue'
 import Admin from '@/views/Admin.vue'
 import Personal from '@/views/Personal.vue'
-import list2 from '@/views/list2.vue'
 import Comment from '@/views/Comment.vue'
-import JokeList from '@/views/JokeList.vue'
-import UserList from '@/views/UserList.vue'
-
 import XiangQing from '@/views/XiangQing.vue'
-
 import test from '@/views/test.vue'
-
-
-
-
-
+import list2 from '@/views/sys/list2.vue'
+import UserList from '@/views/sys/UserList.vue'
+import jokeList from '@/views/sys/jokeList.vue'
 
 Vue.use(Router)
 export default new Router({
@@ -56,15 +49,9 @@ export default new Router({
       component: Newshiwei
     },
     {
-      path: '/AppMain',
-      name: 'AppMain',
-      component: AppMain
-    },
-    {
       path: '/Personal',
       name: 'Personal',
       component: Personal
-
     },
     {
       path: '/Admin',
@@ -72,39 +59,38 @@ export default new Router({
       component: Admin
     },
     {
-      path: '/list2',
-      name: 'list2',
-      component: list2
-    },
-    {
-<<<<<<< HEAD
       path: '/Comment',
       name: 'Comment',
       component: Comment
     },
     {
-      path: '/JokeList',
-      name: 'JokeList',
-      component: JokeList
-    },
-    {
-      path: '/UserList',
-      name: 'UserList',
-      component: UserList
-    },
-
-    // }
-=======
       path: '/XiangQing',
       name: 'XiangQing',
       component: XiangQing
-    }
-    , {
+    },
+    {
+      path: '/AppMain',
+      name: 'AppMain',
+      component: AppMain,
+      children: [{
+          path: '/sys/list2',
+          name: 'list2',
+          component: list2
+        },
+        {
+          path: '/sys/UserList',
+          name: 'UserList',
+          component: UserList
+        },
+        {
+          path: '/sys/jokeList',
+          name: 'jokeList',
+          component: jokeList
+        }]
+    },
+     {
       path: '/test',
       name: 'test',
       component: test
-    }
->>>>>>> 295b6598ce0dbd6dbf1711aee800c695e9a83258
-
-  ]
+    }]
 })
