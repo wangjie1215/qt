@@ -19,8 +19,13 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+<<<<<<< HEAD
 } */
   #app {
+=======
+}
+ #app {
+>>>>>>> 295b6598ce0dbd6dbf1711aee800c695e9a83258
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

@@ -9,24 +9,6 @@
         <el-form-item label="电话">
           <el-input v-model="sizeForm.user_phone" readonly="true"></el-input>
         </el-form-item>
-        <el-form-item label="身份证">
-          <el-input v-model="sizeForm.user_idcard" readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证名字">
-          <el-input v-model="sizeForm.user_idcard_name" readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证地址">
-          <el-input v-model="sizeForm.user_idcardaddress" readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证生日">
-          <el-input v-model="sizeForm.user_idcard_birthday" readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证性别">
-          <el-input v-model="sizeForm.user_idcard_sex" readonly="true"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证国籍">
-          <el-input v-model="sizeForm.user_idcard_antion" readonly="true"></el-input>
-        </el-form-item>
       </el-form>
     </div>
 
@@ -77,24 +59,6 @@
               <el-form-item label="电话">
                 <el-input v-model="sizeForm.user_phone"></el-input>
               </el-form-item>
-              <el-form-item label="身份证">
-                <el-input v-model="sizeForm.user_idcard"></el-input>
-              </el-form-item>
-              <el-form-item label="身份证名字">
-                <el-input v-model="sizeForm.user_idcard_name"></el-input>
-              </el-form-item>
-              <el-form-item label="身份证地址">
-                <el-input v-model="sizeForm.user_idcard_address"></el-input>
-              </el-form-item>
-              <el-form-item label="身份证生日">
-                <el-input v-model="sizeForm.user_idcard_birthday"></el-input>
-              </el-form-item>
-              <el-form-item label="身份证性别">
-                <el-input v-model="sizeForm.user_idcard_sex"></el-input>
-              </el-form-item>
-              <el-form-item label="身份证国籍">
-                <el-input v-model="sizeForm.user_idcard_antion"></el-input>
-              </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit">确定</el-button>
                 <el-button>取消</el-button>
@@ -115,12 +79,7 @@
       return {
         sizeForm: {
           user_id:'',
-          user_phone:'',
-          user_idcard:'',
-          user_id_name:'',
-          user_idcard_address:'',
-          user_idcard_sex:'',
-          user_idcard_antion:''
+          user_phone:''
         },
         activeName: 'first'
       };

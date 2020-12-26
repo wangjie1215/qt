@@ -1,22 +1,23 @@
 <template>
 	<el-container class="main-container">
-		<el-aside class="main-aside">
+		<el-aside :class="className">
 			<LeftNav></LeftNav>
 		</el-aside>
 		<el-container>
 			<el-header class="main-header">
-				<TopNav></TopNav>
+				<TopNav></TopNav><!--3.使用组件-->
 			</el-header>
-			<el-main class="main-center">Main</el-main>
+			<el-main class="main-center">
+        <router-view></router-view>
+      </el-main>
 		</el-container>
 	</el-container>
 </template>
 
 <script>
 	// 1.导入组件
-  import LeftNav from '@/components/LeftNav.vue'
 	import TopNav from '@/components/TopNav.vue'
-
+	import LeftNav from '@/components/LeftNav.vue'
 
 
 	// 导出模块
@@ -25,23 +26,23 @@
 			return {
 				collapsed: false
 			}
-	
+
 		},
 		components: { //2.注册组件
 			TopNav,
 			LeftNav
 		},
-	  created:function(){
-	    this.$root.Bus.$on('abcd',(v)=>{
-	     return this.collapsed =v;
-	    });
-	
-	  },
-	  computed:{
-	    className:function(){
-	      return this.collapsed?'main-aside-collapsed':'main-aside';
-	    }
-	  }
+    created:function(){
+      this.$root.Bus.$on('abcd',(v)=>{
+       return this.collapsed =v;
+      });
+
+    },
+    computed:{
+      className:function(){
+        return this.collapsed?'main-aside-collapsed':'main-aside';
+      }
+    }
 	};
 </script>
 <style scoped>

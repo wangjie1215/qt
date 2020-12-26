@@ -14,6 +14,11 @@ import Comment from '@/views/Comment.vue'
 import JokeList from '@/views/JokeList.vue'
 import UserList from '@/views/UserList.vue'
 
+import XiangQing from '@/views/XiangQing.vue'
+
+import test from '@/views/test.vue'
+
+
 
 
 
@@ -72,6 +77,7 @@ export default new Router({
       component: list2
     },
     {
+<<<<<<< HEAD
       path: '/Comment',
       name: 'Comment',
       component: Comment
@@ -88,6 +94,17 @@ export default new Router({
     },
 
     // }
+=======
+      path: '/XiangQing',
+      name: 'XiangQing',
+      component: XiangQing
+    }
+    , {
+      path: '/test',
+      name: 'test',
+      component: test
+    }
+>>>>>>> 295b6598ce0dbd6dbf1711aee800c695e9a83258
 
   ]
 })
